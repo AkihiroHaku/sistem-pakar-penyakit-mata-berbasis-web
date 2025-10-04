@@ -1,0 +1,225 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Reset dan Pengaturan Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #E8F0F2; /* Warna latar belakang netral */
+    color: #333;
+}
+
+/* Pengaturan Halaman */
+.page {
+    display: none; /* Semua halaman disembunyikan secara default */
+}
+
+.page.active {
+    display: block; /* Hanya halaman dengan kelas 'active' yang tampil */
+}
+
+
+/* --- STYLE HALAMAN UTAMA (ANALISIS) --- */
+
+.main-header {
+    background-color: #00A8CC;
+    color: white;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.header-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-button {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.header-text h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.header-text p {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.mobile-menu {
+    display: none; /* Sembunyikan menu secara default */
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.mobile-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.mobile-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+.main-content {
+    padding: 20px;
+    margin-top: -40px; /* Konten naik menimpa header */
+    position: relative;
+}
+
+.card {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    padding: 25px;
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.symptoms-list .symptom-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s;
+}
+
+.symptom-item:hover {
+    background-color: #f9f9f9;
+}
+
+.symptom-item label {
+    cursor: pointer;
+}
+
+.symptom-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 25px;
+}
+
+
+/* --- STYLE HALAMAN LOGIN & SIGN UP --- */
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.auth-card {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-card h2 {
+    color: #00A8CC;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #00A8CC;
+    box-shadow: 0 0 0 3px rgba(0, 168, 204, 0.2);
+}
+
+.auth-switch {
+    margin-top: 25px;
+    font-size: 0.9rem;
+}
+
+.auth-switch a {
+    color: #00A8CC;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* --- STYLE TOMBOL GRADIENT --- */
+.btn-gradient {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(90deg, #00A8CC, #00C3E6);
+    box-shadow: 0 4px 10px rgba(0, 168, 204, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 168, 204, 0.5);
+}
