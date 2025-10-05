@@ -1,0 +1,142 @@
+/* General Body Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #444;
+}
+
+/* Header Styles */
+.main-header {
+    background: linear-gradient(90deg, #1e88e5, #00b0ff);
+    color: white;
+    padding: 25px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.header-text h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 2em;
+}
+
+.header-text p {
+    margin: 5px 0 0;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* Main Content Area */
+.main-content {
+    padding: 40px 20px;
+}
+
+/* Diagnosis Card */
+.diagnosis-card {
+    max-width: 800px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.card-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.title-divider {
+    width: 80px;
+    height: 4px;
+    background-color: #1e88e5;
+    opacity: 1;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.result-main .disease-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1e88e5;
+}
+
+.result-main .match-percentage {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Accordion Customization */
+.accordion {
+    --bs-accordion-border-color: #dee2e6;
+    --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230c63e4'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708 .708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230c63e4'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708 .708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-item {
+    border: 1px solid #e9ecef;
+    border-radius: 8px !important;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.accordion-item:first-of-type {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+}
+.accordion-item:last-of-type {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+    margin-bottom: 0;
+}
+
+.accordion-button {
+    font-weight: 600;
+    color: #333;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: #1e88e5;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(30, 136, 229, 0.25);
+}
+
+.accordion-body {
+    background-color: #fdfdfd;
+}
+
+/* Disclaimer */
+.disclaimer {
+    font-size: 0.85rem;
+    text-align: center;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+/* Button */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(90deg, #00A8CC, #00C3E6);
+    box-shadow: 0 4px 10px rgba(0, 168, 204, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 168, 204, 0.5);
+}
+

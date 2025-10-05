@@ -1,5 +1,5 @@
 <?php
-// Kode untuk menampilkan semua error PHP
+// cek eror
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -11,7 +11,7 @@ error_reporting(E_ALL);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Pakar</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth-style.css">
 </head>
 <body>
     <div class="auth-page">
@@ -26,7 +26,7 @@ error_reporting(E_ALL);
                     <label for="login-password">Password</label>
                     <input type="password" id="login-password" placeholder="Enter Password">
                 </div>
-                <button type="submit" class="btn-gradient">login</button>
+                <button type="submit" class="btn-gradient">Login</button>
             </form>
             <p class="auth-switch">Belum punya akun? <a href="signup.php">Daftar disini</a></p>
         </div>

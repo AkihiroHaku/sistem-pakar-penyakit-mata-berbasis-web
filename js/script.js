@@ -1,30 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Mencari tombol menu dan menu dropdown di dalam dokumen HTML
+document.addEventListener('DOMContentLoaded', function() {
     const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+    const closeButton = document.getElementById('close-btn');
+    const sidebar = document.getElementById('sidebar-menu');
+    const mainContent = document.getElementById('main-content-wrapper');
 
-    // Memastikan kedua elemen tersebut ada sebelum menambahkan fungsi
-    if (menuButton && mobileMenu) {
+    // Pastikan semua elemen ditemukan sebelum menambahkan event listener
+    if (menuButton && closeButton && sidebar && mainContent) {
         
-        // Menambahkan fungsi (event listener) saat tombol menu di-klik
-        menuButton.addEventListener('click', (event) => {
-            // Mencegah event "klik" menyebar ke elemen lain (seperti window)
-            event.stopPropagation(); 
-            
-            // Logika untuk menampilkan atau menyembunyikan menu
-            if (mobileMenu.style.display === 'block') {
-                mobileMenu.style.display = 'none';
-            } else {
-                mobileMenu.style.display = 'block';
-            }
-        });
+        // Fungsi untuk membuka sidebar
+        function openSidebar() {
+            sidebar.style.left = '0';
+            mainContent.style.marginLeft = '280px';
+        }
 
-        // Menambahkan fungsi untuk menyembunyikan menu jika pengguna mengklik di mana saja di luar area menu
-        window.addEventListener('click', () => {
-            if (mobileMenu.style.display === 'block') {
-                mobileMenu.style.display = 'none';
-            }
-        });
+        // Fungsi untuk menutup sidebar
+        function closeSidebar() {
+            sidebar.style.left = '-280px';
+            mainContent.style.marginLeft = '0';
+        }
+
+        // Event listener untuk tombol buka
+        menuButton.addEventListener('click', openSidebar);
+
+        // Event listener untuk tombol tutup
+        closeButton.addEventListener('click', closeSidebar);
     }
 });
 

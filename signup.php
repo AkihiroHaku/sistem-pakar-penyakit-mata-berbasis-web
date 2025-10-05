@@ -11,7 +11,7 @@ error_reporting(E_ALL);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Sistem Pakar</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth-style.css">
 </head>
 <body>
     <div class="auth-page">
@@ -30,7 +30,7 @@ error_reporting(E_ALL);
                     <label for="signup-confirm-password">Confirm Your Password</label>
                     <input type="password" id="signup-confirm-password" placeholder="Confirm your Password">
                 </div>
-                <button type="submit" class="btn-gradient">sign in</button>
+                <button type="submit" class="btn-gradient">Sign Up</button>
             </form>
              <p class="auth-switch">Sudah punya akun? <a href="login.php">Login disini</a></p>
         </div>
