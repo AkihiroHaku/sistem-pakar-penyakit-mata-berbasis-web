@@ -22,15 +22,17 @@ $persentase_teratas = current($hasil_cf); // Nilai CF tertinggi
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Analisis Sistem Pakar</title>
+    <title>Hasil Analisis - Sistem Pakar</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome (untuk ikon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/hasil-style.css">
+    <!-- Custom CSS (Gunakan path yang konsisten) -->
+    <link rel="stylesheet" href="assets/css/hasil-style.css">
+    <!-- CSS Tambahan untuk Header (jika belum ada di hasil-style.css) -->
+    <link rel="stylesheet" href="css/style.css"> 
 </head>
 <body>
     <!-- Header Biru yang Konsisten -->
@@ -51,11 +53,12 @@ $persentase_teratas = current($hasil_cf); // Nilai CF tertinggi
                 <hr class="title-divider mx-auto">
 
                 <div class="result-main text-center my-4">
-                    <h3 class="disease-name mb-2"><?= htmlspecialchars($penyakit_teratas['penyakit']) ?></h3>
+                    <!-- NAMA KOLOM DIPERBAIKI: dari 'penyakit' menjadi 'nmpenyakit' -->
+                    <h3 class="disease-name mb-2"><?= htmlspecialchars($penyakit_teratas['nmpenyakit']) ?></h3>
                     <p class="match-percentage">(Tingkat Kecocokan: <strong><?= number_format($persentase_teratas * 100, 2) ?>%</strong>)</p>
                 </div>
                 
-                <!-- Improvisasi: Menggunakan Accordion untuk Detail -->
+                <!-- Menggunakan Accordion untuk Detail -->
                 <div class="accordion" id="resultDetails">
                     
                     <!-- Detail Penyakit & Solusi -->
@@ -106,10 +109,11 @@ $persentase_teratas = current($hasil_cf); // Nilai CF tertinggi
                             <?php 
                                 array_shift($hasil_cf); // Hapus hasil teratas
                                 foreach ($hasil_cf as $id_penyakit => $persentase): 
-                                    $stmt_lain = $conn->prepare("SELECT penyakit FROM penyakit WHERE id = ?");
+                                    // QUERY DIPERBAIKI: Menggunakan 'idpenyakit' dan mengambil 'nmpenyakit'
+                                    $stmt_lain = $conn->prepare("SELECT nmpenyakit FROM penyakit WHERE idpenyakit = ?");
                                     $stmt_lain->execute([$id_penyakit]);
                                     $penyakit_lain = $stmt_lain->fetch(PDO::FETCH_ASSOC);
-                                    $nama_penyakit_lain = $penyakit_lain ? $penyakit_lain['penyakit'] : 'Penyakit Tidak Dikenal';
+                                    $nama_penyakit_lain = $penyakit_lain ? $penyakit_lain['nmpenyakit'] : 'Penyakit Tidak Dikenal';
                             ?>
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between">
@@ -140,7 +144,7 @@ $persentase_teratas = current($hasil_cf); // Nilai CF tertinggi
 
             </div>
         </div>
-        <footer>Kelompok 4</footer>
+        <footer class="text-center text-muted mt-4">Kelompok 4</footer>
     </main>
 
     <!-- Bootstrap JS -->

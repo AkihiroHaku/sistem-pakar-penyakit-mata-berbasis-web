@@ -1,0 +1,91 @@
+/* css/profile.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Light blue background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.profile-container {
+    background-color: #ffffff; /* White container */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    margin: 20px;
+    overflow: hidden;
+}
+
+.profile-header {
+    background-color: #4682B4; /* Steel blue header */
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.profile-content {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-picture {
+    flex: 1;
+    text-align: center;
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ADD8E6; /* Light blue border */
+}
+
+.profile-info {
+    flex: 2;
+    padding-left: 20px;
+}
+
+.profile-info h2 {
+    color: #4682B4; /* Steel blue */
+    margin-top: 0;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.edit-profile-button,
+.logout-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-button {
+    background-color: #5F9EA0; /* Cadet blue */
+}
+
+.logout-button {
+    background-color: #B22222; /* Firebrick */
+}
+
+.edit-profile-button:hover {
+    background-color: #4682B4; /* Steel blue */
+}
+
+.logout-button:hover {
+    background-color: #8B0000; /* Dark red */
+}
