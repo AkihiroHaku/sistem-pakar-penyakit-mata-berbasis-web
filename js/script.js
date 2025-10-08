@@ -1,74 +1,65 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // ===========================
+    // === LOGIKA UNTUK SIDEBAR ===
+    // ===========================
     const menuButton = document.getElementById('menu-button');
-    const closeButton = document.getElementById('close-btn');
+    const closeSidebarButton = document.getElementById('close-btn');
     const sidebar = document.getElementById('sidebar-menu');
     const mainContent = document.getElementById('main-content-wrapper');
 
-    // Pastikan semua elemen ditemukan sebelum menambahkan event listener
-    if (menuButton && closeButton && sidebar && mainContent) {
-        
-        // Fungsi untuk membuka sidebar
+    if (menuButton && closeSidebarButton && sidebar && mainContent) {
         function openSidebar() {
             sidebar.style.left = '0';
             mainContent.style.marginLeft = '280px';
         }
-
-        // Fungsi untuk menutup sidebar
         function closeSidebar() {
             sidebar.style.left = '-280px';
             mainContent.style.marginLeft = '0';
         }
-
-        // Event listener untuk tombol buka
         menuButton.addEventListener('click', openSidebar);
-
-        // Event listener untuk tombol tutup
-        closeButton.addEventListener('click', closeSidebar);
+        closeSidebarButton.addEventListener('click', closeSidebar);
     }
 
-    // --- Logika Modal Pengaturan User ---
-    const openModalButton = document.getElementById('open-settings-modal');
-    const closeModalButton = document.getElementById('modal-close-btn');
-    const modalOverlay = document.getElementById('settings-modal');
-    const modalContent = document.querySelector('.modal-content');
+    // ===================================
+    // === LOGIKA UNTUK MODAL PENGATURAN ===
+    // ===================================
+    const openSettingsModalButton = document.getElementById('open-settings-modal');
+    const closeSettingsModalButton = document.getElementById('modal-close-btn');
+    const settingsModalOverlay = document.getElementById('settings-modal');
+    const settingsModalContent = document.querySelector('#settings-modal .modal-content');
 
-    if (openModalButton && closeModalButton && modalOverlay) {
+    if (openSettingsModalButton && closeSettingsModalButton && settingsModalOverlay) {
         
-        // --- Fungsi Buka/Tutup Modal ---
-        function openModal() {
-            modalOverlay.style.display = 'flex';
-            setTimeout(() => { // Memberi sedikit jeda agar transisi terlihat
-                modalOverlay.style.opacity = '1';
-                modalContent.style.transform = 'scale(1)';
+        function openSettingsModal() {
+            settingsModalOverlay.style.display = 'flex';
+            setTimeout(() => {
+                settingsModalOverlay.style.opacity = '1';
+                settingsModalContent.style.transform = 'scale(1)';
             }, 10);
         }
 
-        function closeModal() {
-            modalOverlay.style.opacity = '0';
-            modalContent.style.transform = 'scale(0.95)';
-            setTimeout(() => { // Tunggu transisi selesai sebelum menyembunyikan
-                modalOverlay.style.display = 'none';
+        function closeSettingsModal() {
+            settingsModalOverlay.style.opacity = '0';
+            settingsModalContent.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                settingsModalOverlay.style.display = 'none';
             }, 300);
         }
 
-        // Cek jika tombolnya ada (hanya ada jika user login)
-        if(openModalButton) {
-            openModalButton.addEventListener('click', function(e) {
-                e.preventDefault(); // Mencegah link '#' menggulir ke atas
-                openModal();
-            });
-        }
+        openSettingsModalButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            openSettingsModal();
+        });
 
-        closeModalButton.addEventListener('click', closeModal);
+        closeSettingsModalButton.addEventListener('click', closeSettingsModal);
         
-        // Tutup modal jika mengklik di luar area kontennya
-        modalOverlay.addEventListener('click', function(event) {
-            if (event.target === modalOverlay) {
-                closeModal();
+        settingsModalOverlay.addEventListener('click', function(event) {
+            if (event.target === settingsModalOverlay) {
+                closeSettingsModal();
             }
         });
 
-        // --- Logika untuk Tab di dalam Modal ---
         const tabLinks = document.querySelectorAll('.modal-tab-link');
         const tabContents = document.querySelectorAll('.modal-tab-content');
 
@@ -76,15 +67,76 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const tabId = this.getAttribute('data-tab');
-
-                // Hapus kelas 'active' dari semua link dan konten
                 tabLinks.forEach(item => item.classList.remove('active'));
                 tabContents.forEach(item => item.classList.remove('active'));
-
-                // Tambahkan kelas 'active' ke link dan konten yang diklik
                 this.classList.add('active');
                 document.getElementById(tabId).classList.add('active');
             });
+        });
+    }
+
+    // =================================
+    // === LOGIKA UNTUK MODAL LOGOUT ===
+    // =================================
+    const openLogoutModalButton = document.getElementById('open-logout-modal');
+    const closeLogoutModalButton = document.getElementById('logout-modal-close-btn');
+    const cancelLogoutButton = document.getElementById('logout-cancel-btn');
+    const logoutModalOverlay = document.getElementById('logout-modal');
+    const logoutModalContent = document.querySelector('#logout-modal .modal-content');
+
+    if(openLogoutModalButton && logoutModalOverlay) {
+        function openLogoutModal() {
+            logoutModalOverlay.style.display = 'flex';
+            setTimeout(() => {
+                logoutModalOverlay.style.opacity = '1';
+                logoutModalContent.style.transform = 'scale(1)';
+            }, 10);
+        }
+
+        function closeLogoutModal() {
+            logoutModalOverlay.style.opacity = '0';
+            logoutModalContent.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                logoutModalOverlay.style.display = 'none';
+            }, 300);
+        }
+
+        openLogoutModalButton.addEventListener('click', function(e){
+            e.preventDefault();
+            openLogoutModal();
+        });
+
+        if (closeLogoutModalButton) {
+            closeLogoutModalButton.addEventListener('click', closeLogoutModal);
+        }
+        if (cancelLogoutButton) {
+            cancelLogoutButton.addEventListener('click', closeLogoutModal);
+        }
+        
+        logoutModalOverlay.addEventListener('click', function(event) {
+            if (event.target === logoutModalOverlay) {
+                closeLogoutModal();
+            }
+        });
+    }
+
+    // ============================================
+    // === LOGIKA BARU UNTUK DROPDOWN PROFIL ===
+    // ============================================
+    const profileOptionsBtn = document.getElementById('profile-options-btn');
+    const profileDropdown = document.getElementById('profile-dropdown');
+
+    if (profileOptionsBtn && profileDropdown) {
+        profileOptionsBtn.addEventListener('click', function(event) {
+            event.stopPropagation(); // Mencegah window.click dieksekusi
+            profileDropdown.classList.toggle('show');
+        });
+
+        // Menutup dropdown jika klik di luar
+        window.addEventListener('click', function(event) {
+            if (!profileOptionsBtn.contains(event.target) && profileDropdown.classList.contains('show')) {
+                profileDropdown.classList.remove('show');
+            }
         });
     }
 });

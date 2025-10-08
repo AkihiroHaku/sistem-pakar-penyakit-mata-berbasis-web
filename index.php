@@ -6,16 +6,16 @@ require_once 'includes/db_connect.php';
 $user_is_logged_in = isset($_SESSION['user_id']); 
 $username = $user_is_logged_in ? $_SESSION['username'] : '';
 
-// ======================================================
-// === AMBIL RIWAYAT ANALISIS JIKA PENGGUNA SUDAH LOGIN ===
-// ======================================================
-$riwayat_analisis = []; // Siapkan array kosong untuk menampung riwayat
+// Ambil riwayat analisis jika pengguna sudah login
+$riwayat_analisis = []; 
+$history_error = null; 
+
 if ($user_is_logged_in) {
     try {
-        // Query untuk mengambil 5 riwayat terakhir dari pengguna yang sedang login
-        $sql_history = "SELECT k.persentase_hasil, p.nmpenyakit 
+        // Query untuk mengambil 5 riwayat terakhir
+        $sql_history = "SELECT k.persentase_hasil, p.penyakit 
                         FROM konsultasi AS k
-                        JOIN penyakit AS p ON k.id_penyakit_hasil = p.idpenyakit
+                        JOIN penyakit AS p ON k.id_penyakit_hasil = p.id
                         WHERE k.id_user = ? 
                         ORDER BY k.tanggal_analisis DESC 
                         LIMIT 5"; 
@@ -24,20 +24,18 @@ if ($user_is_logged_in) {
         $stmt_history->execute([$_SESSION['user_id']]);
         $riwayat_analisis = $stmt_history->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        // Jika terjadi error saat mengambil riwayat, biarkan saja
+        $history_error = "Error saat mengambil riwayat: " . $e->getMessage();
     }
 }
 
-// ===============================================
-// === AMBIL SEMUA DATA GEJALA DARI DATABASE ===
-// ===============================================
+// Ambil semua data gejala
 try {
     $query = "SELECT idgejala, nmgejala FROM gejala ORDER BY idgejala ASC";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $daftar_gejala = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
-    die("Error Kritis: Tidak bisa mengambil data gejala dari database. " . $e->getMessage());
+    die("Error Kritis: Tidak bisa mengambil data gejala. " . $e->getMessage());
 }
 ?>
 <!DOCTYPE html>
@@ -46,9 +44,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Pakar Penyakit Mata</title>
-    <!-- Font Awesome (untuk ikon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -64,11 +60,12 @@ try {
         <div class="history-section">
             <span class="history-title">Riwayat Analisis</span>
             <?php if ($user_is_logged_in): ?>
-                <?php if (!empty($riwayat_analisis)): ?>
-                    <!-- Jika ada riwayat, tampilkan di sini -->
+                <?php if ($history_error): ?>
+                    <p class="history-login-prompt" style="color: red;"><?= htmlspecialchars($history_error) ?></p>
+                <?php elseif (!empty($riwayat_analisis)): ?>
                     <?php foreach ($riwayat_analisis as $index => $riwayat): ?>
                         <a href="#" class="sidebar-link">
-                            <?= $index + 1 ?>. <?= htmlspecialchars($riwayat['nmpenyakit']) ?> (<?= number_format($riwayat['persentase_hasil'], 0) ?>%)
+                            <?= $index + 1 ?>. <?= htmlspecialchars($riwayat['penyakit']) ?> (<?= number_format($riwayat['persentase_hasil'], 0) ?>%)
                         </a>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -79,11 +76,21 @@ try {
             <?php endif; ?>
         </div>
 
+        <!-- FOOTER SIDEBAR BARU -->
         <div class="sidebar-footer">
             <?php if ($user_is_logged_in): ?>
-                <!-- Tombol ini akan membuka modal -->
-                <a href="#" class="sidebar-link user-profile" id="open-settings-modal"><i class="fas fa-user-circle"></i> <?= htmlspecialchars($username) ?></a>
-                <a href="logout.php" class="sidebar-link logout-link"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+                <div class="user-profile-display">
+                    <i class="fas fa-user-circle profile-icon"></i>
+                    <span class="username-text"><?= htmlspecialchars($username) ?></span>
+                    <button id="profile-options-btn" class="profile-options-btn">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                <!-- Dropdown Menu untuk Opsi Profil -->
+                <div id="profile-dropdown" class="profile-dropdown">
+                    <a href="#" id="open-settings-modal"><i class="fas fa-cog"></i> Pengaturan</a>
+                    <a href="#" id="open-logout-modal"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+                </div>
             <?php else: ?>
                 <a href="login.php" class="sidebar-link auth-link"><i class="fas fa-sign-in-alt"></i> Masuk / Daftar</a>
             <?php endif; ?>
@@ -126,9 +133,7 @@ try {
         </main>
     </div>
 
-    <!-- ============================================== -->
-    <!-- === STRUKTUR HTML UNTUK JENDELA MODAL PENGATURAN === -->
-    <!-- ============================================== -->
+    <!-- Jendela Modal Pengaturan -->
     <div id="settings-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -142,21 +147,26 @@ try {
                     <a href="#" class="modal-tab-link" data-tab="about"><i class="fas fa-info-circle"></i> About</a>
                 </div>
                 <div class="modal-main-content">
-                    <!-- Konten Tab General -->
-                    <div id="general" class="modal-tab-content active">
-                        <h4>General Settings</h4>
-                        <p>Pengaturan umum seperti tema dan bahasa akan ditampilkan di sini.</p>
-                    </div>
-                    <!-- Konten Tab Profile -->
-                    <div id="profile" class="modal-tab-content">
-                        <h4>Profile Information</h4>
-                        <p>Informasi profil pengguna seperti nama, email, dan opsi log out akan ada di sini.</p>
-                    </div>
-                    <!-- Konten Tab About -->
-                    <div id="about" class="modal-tab-content">
-                        <h4>About This Application</h4>
-                        <p>Ini adalah sistem pakar untuk mendiagnosis penyakit mata berdasarkan gejala yang dipilih pengguna.</p>
-                    </div>
+                    <div id="general" class="modal-tab-content active"><h4>General Settings</h4><p>Pengaturan umum.</p></div>
+                    <div id="profile" class="modal-tab-content"><h4>Profile Information</h4><p>Informasi profil pengguna.</p></div>
+                    <div id="about" class="modal-tab-content"><h4>About This Application</h4><p>Deskripsi aplikasi.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jendela Modal Logout -->
+    <div id="logout-modal" class="modal-overlay">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h3><i class="fas fa-sign-out-alt"></i> Konfirmasi Logout</h3>
+                <button id="logout-modal-close-btn" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body-centered">
+                <p>Apakah Anda yakin ingin keluar?</p>
+                <div class="logout-actions">
+                    <a href="logout.php" class="btn-danger">Ya, Keluar</a>
+                    <button id="logout-cancel-btn" class="btn-secondary">Batal</button>
                 </div>
             </div>
         </div>

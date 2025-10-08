@@ -21,86 +21,173 @@ body {
     height: 100%;
     width: 280px;
     position: fixed;
-    z-index: 1001; /* Z-index tinggi agar di atas segalanya */
+    z-index: 1001;
     top: 0;
     left: -280px; /* Sembunyi di kiri by default */
-    background-color: #2c3e50;
+    background-color: #cdcdcd;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 20px;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
 }
 
 .sidebar-header {
-    padding: 10px 25px;
     text-align: center;
-    margin-bottom: 10px;
+    padding: 10px 0 20px 0;
+    border-bottom: 1px solid #a9a9a9;
 }
 
 .logo-image {
-    width: 60px;         /* Lebar tetap untuk lingkaran */
-    height: 60px;        /* Tinggi harus sama dengan lebar */
-    border-radius: 50%;   /* Ini yang membuatnya menjadi lingkaran! */
-    object-fit: cover;    /* Memastikan gambar mengisi lingkaran tanpa distorsi */
-    border: 3px solid #4a627a; /* Opsional: menambahkan bingkai tipis */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1e88e5;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+    color: #aaa;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.close-btn:hover {
+    color: #333;
 }
 
 .sidebar a.sidebar-link {
-    padding: 10px 15px 10px 25px;
+    padding: 12px 25px;
     text-decoration: none;
-    font-size: 1.1em;
-    color: #bdc3c7;
-    display: block;
+    font-size: 1rem;
+    color: #555;
+    display: flex;
+    align-items: center;
     transition: 0.3s;
     margin: 5px 15px;
     border-radius: 8px;
 }
 
 .sidebar a.sidebar-link i {
-    margin-right: 10px;
-}
-
-.sidebar a.sidebar-link:hover, .sidebar a.sidebar-link.active {
-    background-color: #34495e;
-    color: white;
-}
-
-.sidebar .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 25px;
-    font-size: 36px;
-    color: #bdc3c7;
-    text-decoration: none;
-}
-
-.sidebar .history-section {
-    padding: 10px 25px;
-    color: #ecf0f1;
-    flex-grow: 1;
-}
-
-.history-title {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #34495e;
-    padding-bottom: 10px;
-}
-
-.history-login-prompt {
-    font-size: 0.9em;
-    color: #95a5a6;
-    padding: 10px;
-    background-color: #34495e;
-    border-radius: 5px;
+    margin-right: 15px;
+    width: 20px;
     text-align: center;
 }
 
+.sidebar a.sidebar-link:hover {
+    background-color: #f0f5fa;
+    color: #1e88e5;
+}
+
+.sidebar a.sidebar-link.active {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+}
+
+.history-section {
+    padding: 15px 25px;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.history-title {
+    font-size: 0.8rem;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.history-login-prompt {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+/* --- STYLE FOOTER SIDEBAR BARU --- */
 .sidebar-footer {
-    padding: 20px 15px;
-    border-top: 1px solid #34495e;
+    margin-top: auto; /* Mendorong footer ke bawah */
+    padding: 15px;
+    border-top: 1px solid #f0f0f0;
+    position: relative; /* Diperlukan untuk positioning dropdown */
+}
+
+.user-profile-display {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+.user-profile-display:hover {
+    background-color: #f0f5fa;
+}
+.profile-icon {
+    font-size: 1.8rem;
+    color: #555;
+}
+.username-text {
+    margin-left: 10px;
+    font-weight: 500;
+    color: #333;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.profile-options-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #888;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.profile-options-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dropdown Menu untuk Profil */
+.profile-dropdown {
+    display: none; /* Sembunyikan by default */
+    position: absolute;
+    bottom: calc(100% - 10px); /* Muncul di atas footer dengan sedikit jarak */
+    right: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+    z-index: 1002;
+    width: 200px;
+    overflow: hidden;
+}
+.profile-dropdown.show {
+    display: block;
+}
+.profile-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+.profile-dropdown a:hover {
+    background-color: #f0f5fa;
+}
+.profile-dropdown i {
+    width: 20px;
+    text-align: center;
+}
+.sidebar-footer .auth-link {
+    margin: 0;
 }
 
 
@@ -133,7 +220,7 @@ body {
 
 .header-text {
     text-align: center;
-    flex-grow: 1; /* Membuat teks header mengisi sisa ruang */
+    flex-grow: 1;
 }
 
 .header-text h1 {
@@ -150,7 +237,7 @@ body {
 
 .main-content {
     padding: 20px;
-    margin-top: -40px; /* Konten naik menimpa header */
+    margin-top: -40px;
     position: relative;
     z-index: 1;
 }
@@ -205,7 +292,6 @@ body {
     margin-top: 25px;
 }
 
-/* --- STYLE TOMBOL GRADIENT --- */
 .btn-gradient {
     width: 100%;
     padding: 12px;
@@ -225,6 +311,10 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 168, 204, 0.5);
 }
+
+/* ================================== */
+/* === STYLE UNTUK JENDELA MODAL === */
+/* ================================== */
 
 .modal-overlay {
     position: fixed;
@@ -246,11 +336,18 @@ body {
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     width: 90%;
-    max-width: 700px;
     display: flex;
     flex-direction: column;
     transform: scale(0.95);
     transition: transform 0.3s ease;
+}
+
+.modal-content.modal-sm {
+    max-width: 400px; /* Ukuran lebih kecil untuk modal logout */
+}
+
+.modal-content:not(.modal-sm) {
+    max-width: 700px;
 }
 
 .modal-header {
@@ -284,6 +381,17 @@ body {
     min-height: 350px;
 }
 
+.modal-body-centered { /* Untuk modal logout */
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.modal-body-centered p {
+    margin-bottom: 20px;
+}
+
 .modal-sidebar {
     width: 200px;
     background-color: #fff;
@@ -293,19 +401,20 @@ body {
 }
 
 .modal-tab-link {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 12px 20px;
     color: #555;
     text-decoration: none;
     font-weight: 500;
     border-left: 3px solid transparent;
 }
-
+.modal-tab-link i {
+    margin-right: 10px;
+}
 .modal-tab-link:hover {
     background-color: #f1f1f1;
-    color: #1e88e5;
 }
-
 .modal-tab-link.active {
     background-color: #e8f0ff;
     color: #1e88e5;
@@ -318,10 +427,33 @@ body {
 }
 
 .modal-tab-content {
-    display: none; /* Sembunyikan semua tab */
+    display: none;
 }
-
 .modal-tab-content.active {
-    display: block; /* Tampilkan hanya yang aktif */
+    display: block;
 }
 
+/* Tombol untuk modal logout */
+.logout-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+.logout-actions .btn-danger {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+.logout-actions .btn-secondary {
+    background-color: #bdc3c7;
+    color: #34495e;
+    font-weight: 600;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+}

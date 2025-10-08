@@ -22,8 +22,7 @@ try {
                   JOIN `basis_aturan` AS b ON d.idaturan = b.idaturan
                   WHERE d.idgejala IN ($placeholders)";
                   
-    $stmt_rules =
-$conn->prepare($sql_rules);
+    $stmt_rules = $conn->prepare($sql_rules);
     $stmt_rules->execute($gejala_dipilih_ids);
     $aturan = $stmt_rules->fetchAll(PDO::FETCH_ASSOC);
 
@@ -65,8 +64,8 @@ $conn->prepare($sql_rules);
     $id_penyakit_teratas = key($cf_penyakit);
     $persentase_teratas = current($cf_penyakit) * 100;
 
-    // LANGKAH 5: Ambil Detail Penyakit Teratas (NAMA KOLOM DIPERBAIKI)
-    $sql_penyakit = "SELECT * FROM penyakit WHERE id = ?";
+    // LANGKAH 5: Ambil Detail Penyakit Teratas
+    $sql_penyakit = "SELECT * FROM penyakit WHERE id = ?"; // Menggunakan kolom 'id' sesuai screenshot terakhir Anda
     $stmt_penyakit = $conn->prepare($sql_penyakit);
     $stmt_penyakit->execute([$id_penyakit_teratas]);
     $penyakit_teratas_detail = $stmt_penyakit->fetch(PDO::FETCH_ASSOC);
@@ -75,8 +74,11 @@ $conn->prepare($sql_rules);
         throw new Exception("Detail penyakit untuk ID $id_penyakit_teratas tidak ditemukan.");
     }
     
-    // LANGKAH 6: Simpan Hasil ke Riwayat Jika Pengguna Sudah Login
+    // =====================================================================
+    // === LANGKAH 6: SIMPAN HASIL KE RIWAYAT JIKA PENGGUNA SUDAH LOGIN ===
+    // =====================================================================
     if ($user_is_logged_in) {
+        // Mulai transaksi database untuk memastikan semua query berhasil
         $conn->beginTransaction();
         
         // a. Simpan ke tabel `konsultasi`
@@ -88,15 +90,17 @@ $conn->prepare($sql_rules);
             $persentase_teratas
         ]);
         
+        // Ambil ID dari konsultasi yang baru saja disimpan
         $id_konsultasi_baru = $conn->lastInsertId();
         
         // b. Simpan setiap gejala yang dipilih ke tabel `detail_konsultasi`
-        $sql_insert_detail = "INSERT INTO detail_konsultasi (id_konsultasi, id_gejala) VALUES (?, ?)";
+        $sql_insert_detail = "INSERT INTO detail_konsultasi (idkonsul, idgejala) VALUES (?, ?)";
         $stmt_detail = $conn->prepare($sql_insert_detail);
         foreach ($gejala_dipilih_ids as $id_gejala) {
             $stmt_detail->execute([$id_konsultasi_baru, $id_gejala]);
         }
         
+        // Selesaikan transaksi
         $conn->commit();
     }
 
@@ -106,10 +110,11 @@ $conn->prepare($sql_rules);
     $_SESSION['gejala_terpilih'] = $gejala_terpilih_detail;
 
     // LANGKAH 8: Arahkan ke Halaman Hasil
-    header("Location: hasil_analisis.php");
+    header("Location: analisis.php");
     exit();
 
 } catch (PDOException $e) {
+    // Jika ada error database, batalkan transaksi
     if (isset($conn) && $conn->inTransaction()) {
         $conn->rollBack();
     }
