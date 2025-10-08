@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
     // ===========================
     // === LOGIKA UNTUK SIDEBAR ===
     // ===========================
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const settingsModalContent = document.querySelector('#settings-modal .modal-content');
 
     if (openSettingsModalButton && closeSettingsModalButton && settingsModalOverlay) {
-        
+
         function openSettingsModal() {
             settingsModalOverlay.style.display = 'flex';
             setTimeout(() => {
@@ -47,14 +47,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }
 
-        openSettingsModalButton.addEventListener('click', function(e) {
+        openSettingsModalButton.addEventListener('click', function (e) {
             e.preventDefault();
             openSettingsModal();
         });
 
         closeSettingsModalButton.addEventListener('click', closeSettingsModal);
-        
-        settingsModalOverlay.addEventListener('click', function(event) {
+
+        settingsModalOverlay.addEventListener('click', function (event) {
             if (event.target === settingsModalOverlay) {
                 closeSettingsModal();
             }
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const tabContents = document.querySelectorAll('.modal-tab-content');
 
         tabLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const tabId = this.getAttribute('data-tab');
                 tabLinks.forEach(item => item.classList.remove('active'));
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const logoutModalOverlay = document.getElementById('logout-modal');
     const logoutModalContent = document.querySelector('#logout-modal .modal-content');
 
-    if(openLogoutModalButton && logoutModalOverlay) {
+    if (openLogoutModalButton && logoutModalOverlay) {
         function openLogoutModal() {
             logoutModalOverlay.style.display = 'flex';
             setTimeout(() => {
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }
 
-        openLogoutModalButton.addEventListener('click', function(e){
+        openLogoutModalButton.addEventListener('click', function (e) {
             e.preventDefault();
             openLogoutModal();
         });
@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cancelLogoutButton) {
             cancelLogoutButton.addEventListener('click', closeLogoutModal);
         }
-        
-        logoutModalOverlay.addEventListener('click', function(event) {
+
+        logoutModalOverlay.addEventListener('click', function (event) {
             if (event.target === logoutModalOverlay) {
                 closeLogoutModal();
             }
@@ -127,13 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileDropdown = document.getElementById('profile-dropdown');
 
     if (profileOptionsBtn && profileDropdown) {
-        profileOptionsBtn.addEventListener('click', function(event) {
+        profileOptionsBtn.addEventListener('click', function (event) {
             event.stopPropagation(); // Mencegah window.click dieksekusi
             profileDropdown.classList.toggle('show');
         });
 
         // Menutup dropdown jika klik di luar
-        window.addEventListener('click', function(event) {
+        window.addEventListener('click', function (event) {
             if (!profileOptionsBtn.contains(event.target) && profileDropdown.classList.contains('show')) {
                 profileDropdown.classList.remove('show');
             }
@@ -141,3 +141,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+const searchInput = document.getElementById('gejala-search');
+const symptomItems = document.querySelectorAll('.symptom-item');
+
+if (searchInput && symptomItems) {
+    searchInput.addEventListener('keyup', function () {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        symptomItems.forEach(item => {
+            const label = item.querySelector('label');
+            if (label) {
+                const labelText = label.textContent.toLowerCase();
+                // Jika teks label mengandung kata kunci pencarian, tampilkan
+                if (labelText.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    // Jika tidak, sembunyikan
+                    item.style.display = 'none';
+                }
+            }
+        });
+    });
+}

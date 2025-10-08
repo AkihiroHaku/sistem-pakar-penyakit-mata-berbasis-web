@@ -1,14 +1,14 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php'; 
+require_once 'includes/db_connect.php';
 
 // Cek status login pengguna
-$user_is_logged_in = isset($_SESSION['user_id']); 
+$user_is_logged_in = isset($_SESSION['user_id']);
 $username = $user_is_logged_in ? $_SESSION['username'] : '';
 
 // Ambil riwayat analisis jika pengguna sudah login
-$riwayat_analisis = []; 
-$history_error = null; 
+$riwayat_analisis = [];
+$history_error = null;
 
 if ($user_is_logged_in) {
     try {
@@ -18,8 +18,8 @@ if ($user_is_logged_in) {
                         JOIN penyakit AS p ON k.id_penyakit_hasil = p.id
                         WHERE k.id_user = ? 
                         ORDER BY k.tanggal_analisis DESC 
-                        LIMIT 5"; 
-        
+                        LIMIT 5";
+
         $stmt_history = $conn->prepare($sql_history);
         $stmt_history->execute([$_SESSION['user_id']]);
         $riwayat_analisis = $stmt_history->fetchAll(PDO::FETCH_ASSOC);
@@ -34,19 +34,21 @@ try {
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $daftar_gejala = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch(PDOException $e) {
+} catch (PDOException $e) {
     die("Error Kritis: Tidak bisa mengambil data gejala. " . $e->getMessage());
 }
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Pakar Penyakit Mata</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <!-- Sidebar Menu -->
@@ -56,7 +58,7 @@ try {
             <img src="assets/images/logomata.jpg" alt="Logo" class="logo-image">
         </div>
         <a href="index.php" class="sidebar-link active"><i class="fas fa-plus-circle"></i> NEW ANALISIS</a>
-        
+
         <div class="history-section">
             <span class="history-title">Riwayat Analisis</span>
             <?php if ($user_is_logged_in): ?>
@@ -112,6 +114,10 @@ try {
         <main class="main-content">
             <div class="card">
                 <h2>Pilih gejala yang anda alami</h2>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="gejala-search" placeholder="Cari nama gejala...">
+                </div>
                 <form action="proses_analisis.php" method="POST">
                     <div class="symptoms-list">
                         <?php if (count($daftar_gejala) > 0): ?>
@@ -147,9 +153,18 @@ try {
                     <a href="#" class="modal-tab-link" data-tab="about"><i class="fas fa-info-circle"></i> About</a>
                 </div>
                 <div class="modal-main-content">
-                    <div id="general" class="modal-tab-content active"><h4>General Settings</h4><p>Pengaturan umum.</p></div>
-                    <div id="profile" class="modal-tab-content"><h4>Profile Information</h4><p>Informasi profil pengguna.</p></div>
-                    <div id="about" class="modal-tab-content"><h4>About This Application</h4><p>Deskripsi aplikasi.</p></div>
+                    <div id="general" class="modal-tab-content active">
+                        <h4>General Settings</h4>
+                        <p>Pengaturan umum.</p>
+                    </div>
+                    <div id="profile" class="modal-tab-content">
+                        <h4>Profile Information</h4>
+                        <p>Informasi profil pengguna.</p>
+                    </div>
+                    <div id="about" class="modal-tab-content">
+                        <h4>About This Application</h4>
+                        <p>Deskripsi aplikasi.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,8 +186,8 @@ try {
             </div>
         </div>
     </div>
-
+    <footer class="text-center text-muted mt-4">@2025 Kelompok 4 | Sistem Pakar Penyakit Mata</footer>
     <script src="js/script.js"></script>
 </body>
-</html>
 
+</html>

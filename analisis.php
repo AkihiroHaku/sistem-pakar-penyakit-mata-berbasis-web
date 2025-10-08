@@ -142,7 +142,7 @@ $persentase_teratas = current($hasil_cf);
                 </div>
             </div>
         </div>
-        <footer class="text-center text-muted mt-4">Kelompok 4</footer>
+        <footer class="text-center text-muted mt-4">@2025 Kelompok 4 | Sistem Pakar Penyakit Mata</footer>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
