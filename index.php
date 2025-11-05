@@ -169,7 +169,12 @@ try {
                     </div>
                     <div id="about" class="modal-tab-content">
                         <h4>About This Application</h4>
-                        <p>Deskripsi aplikasi.</p>
+                        <p>Website ini dibuat oleh kelompok 4 😎😎
+                            <br> 1. M. Nabilul Arsyad = 101230012 <br>
+                                 2. M. Khoirul anwar = 101230107 <br>
+                                 3. Siti Nurlela = 101230065 <br>
+                                 4. Umi Aimatul Fauziyah = 101230019 <br>
+                        </p>
                     </div>
                 </div>
             </div>

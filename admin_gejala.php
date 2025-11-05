@@ -33,8 +33,8 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome (untuk ikon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <!-- File CSS Admin KHUSUS -->
-    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <!-- File CSS Admin KHUSUS (Pastikan path ini benar) -->
+    <link rel="stylesheet" href="css/admin-style.css">
 </head>
 <body>
 
@@ -84,8 +84,8 @@ try {
                 <div class="alert alert-danger"><?= htmlspecialchars($_GET['error']) ?></div>
             <?php endif; ?>
 
-            <!-- Kartu untuk Menambah Gejala Baru -->
-            <div class="card mb-4">
+            <!-- Kartu untuk Menambah Gejala Baru (ID PENTING) -->
+            <div class="card mb-4" id="form-tambah-gejala">
                 <div class="card-header">
                     <i class="fas fa-plus-circle"></i> Tambah Gejala Publik Baru
                 </div>
@@ -97,6 +97,29 @@ try {
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Simpan Gejala
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Form Edit Gejala (Tersembunyi) (ID PENTING) -->
+            <div class="card mb-4" id="form-edit-gejala" style="display: none; background-color: #fffbe6;">
+                <div class="card-header text-dark">
+                    <i class="fas fa-edit"></i> Edit Gejala
+                </div>
+                <div class="card-body">
+                    <form action="proses_edit_gejala.php" method="POST">
+                        <input type="hidden" id="idgejala_edit" name="idgejala_edit">
+                        <div class="mb-3">
+                            <label for="nmgejala_edit" class="form-label">Nama Gejala</label>
+                            <input type="text" class="form-control" id="nmgejala_edit" name="nmgejala_edit" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save"></i> Update Gejala
+                        </button>
+                        <!-- Tombol Batal (ID PENTING) -->
+                        <button type="button" id="btn-batal-edit-gejala" class="btn btn-secondary">
+                            Batal
                         </button>
                     </form>
                 </div>
@@ -139,9 +162,12 @@ try {
                                             ?>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-warning btn-sm">
+                                            <!-- Tombol Edit (CLASS & ATRIBUT DATA PENTING) -->
+                                            <button class="btn btn-warning btn-sm btn-edit-gejala"
+                                                data-id="<?= $gejala['idgejala'] ?>"
+                                                data-nama="<?= htmlspecialchars($gejala['nmgejala']) ?>">
                                                 <i class="fas fa-edit"></i> Edit
-                                            </a>
+                                            </button>
                                             <a href="hapus_gejala.php?id=<?= $gejala['idgejala'] ?>" class="btn btn-danger btn-sm btn-delete-gejala">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </a>
@@ -158,8 +184,8 @@ try {
         </div>
     </div> <!-- .admin-content -->
 
-    <!-- Memanggil JS Bootstrap dan JS Kustom Admin -->
+    <!-- Memanggil JS Bootstrap dan JS Kustom Admin (Pastikan path ini benar) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/admin-script.js"></script>
+    <script src="js/admin-script.js"></script>
 </body>
 </html>
