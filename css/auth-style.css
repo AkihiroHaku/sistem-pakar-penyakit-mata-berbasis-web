@@ -78,6 +78,23 @@ body {
     font-weight: 600;
 }
 
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.3s;
+}
+
+.toggle-password:hover {
+    color: #00A8CC;
+}
 /* --- STYLE TOMBOL GRADIENT --- */
 .btn-gradient {
     width: 100%;

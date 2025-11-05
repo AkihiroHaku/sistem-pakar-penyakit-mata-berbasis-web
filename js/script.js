@@ -1,12 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-
-    // ===========================
-    // === LOGIKA UNTUK SIDEBAR ===
-    // ===========================
     const menuButton = document.getElementById('menu-button');
     const closeSidebarButton = document.getElementById('close-btn');
     const sidebar = document.getElementById('sidebar-menu');
     const mainContent = document.getElementById('main-content-wrapper');
+    const openSettingsModalButton = document.getElementById('open-settings-modal');
+    const closeSettingsModalButton = document.getElementById('modal-close-btn');
+    const settingsModalOverlay = document.getElementById('settings-modal');
+    const settingsModalContent = document.querySelector('#settings-modal .modal-content');
+    const tabLinks = document.querySelectorAll('.modal-tab-link');
+    const tabContents = document.querySelectorAll('.modal-tab-content');
+    const openLogoutModalButton = document.getElementById('open-logout-modal');
+    const closeLogoutModalButton = document.getElementById('logout-modal-close-btn');
+    const cancelLogoutButton = document.getElementById('logout-cancel-btn');
+    const logoutModalOverlay = document.getElementById('logout-modal');
+    const logoutModalContent = document.querySelector('#logout-modal .modal-content');
 
     if (menuButton && closeSidebarButton && sidebar && mainContent) {
         function openSidebar() {
@@ -24,10 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ===================================
     // === LOGIKA UNTUK MODAL PENGATURAN ===
     // ===================================
-    const openSettingsModalButton = document.getElementById('open-settings-modal');
-    const closeSettingsModalButton = document.getElementById('modal-close-btn');
-    const settingsModalOverlay = document.getElementById('settings-modal');
-    const settingsModalContent = document.querySelector('#settings-modal .modal-content');
+
 
     if (openSettingsModalButton && closeSettingsModalButton && settingsModalOverlay) {
 
@@ -60,8 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        const tabLinks = document.querySelectorAll('.modal-tab-link');
-        const tabContents = document.querySelectorAll('.modal-tab-content');
+
 
         tabLinks.forEach(link => {
             link.addEventListener('click', function (e) {
@@ -78,11 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // =================================
     // === LOGIKA UNTUK MODAL LOGOUT ===
     // =================================
-    const openLogoutModalButton = document.getElementById('open-logout-modal');
-    const closeLogoutModalButton = document.getElementById('logout-modal-close-btn');
-    const cancelLogoutButton = document.getElementById('logout-cancel-btn');
-    const logoutModalOverlay = document.getElementById('logout-modal');
-    const logoutModalContent = document.querySelector('#logout-modal .modal-content');
+
 
     if (openLogoutModalButton && logoutModalOverlay) {
         function openLogoutModal() {

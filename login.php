@@ -9,23 +9,25 @@ if (isset($_SESSION['user_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Pakar</title>
-    <!-- Pastikan path CSS ini benar -->
-    <link rel="stylesheet" href="css/auth-style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/auth-style.css">
 </head>
+
 <body>
     <div class="auth-page">
         <div class="auth-card">
             <h2>Log In</h2>
 
             <!-- Bagian untuk menampilkan pesan error atau sukses -->
-            <?php if(isset($_GET['error'])): ?>
+            <?php if (isset($_GET['error'])): ?>
                 <div class="auth-alert error"><?= htmlspecialchars($_GET['error']) ?></div>
             <?php endif; ?>
-            <?php if(isset($_GET['success'])): ?>
+            <?php if (isset($_GET['success'])): ?>
                 <div class="auth-alert success"><?= htmlspecialchars($_GET['success']) ?></div>
             <?php endif; ?>
 
@@ -39,7 +41,10 @@ if (isset($_SESSION['user_id'])) {
                 <div class="input-group">
                     <label for="password">Password</label>
                     <!-- Menambahkan atribut 'name' -->
-                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
                 </div>
                 <button type="submit" class="btn-gradient">Login</button>
             </form>
@@ -48,6 +53,7 @@ if (isset($_SESSION['user_id'])) {
             </div>
         </div>
     </div>
+    <!-- Memanggil file JavaScript eksternal untuk validasi -->
+    <script src="js/confirm.js"></script>
 </body>
 </html>
-

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Sistem Pakar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="css/auth-style.css">
 </head>
 
@@ -24,11 +25,17 @@
                 </div>
                 <div class="input-group">
                     <label for="password">Enter Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="confirm_password">Confirm Your Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Your Password" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Enter Password" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
                     <small id="password-mismatch-error" class="password-error"></small>
                 </div>
                 <!-- Teks tombol diubah -->
@@ -42,7 +49,7 @@
     </div>
 
     <!-- Memanggil file JavaScript eksternal untuk validasi -->
-    <script src="js/script.js"></script>
+    <script src="js/confirm.js"></script>
 </body>
 
 </html>

@@ -13,8 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
-        // 1. Cari pengguna berdasarkan username
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        // 1. Cari pengguna DAN ambil 'role' mereka
+        // PERUBAHAN DI SINI: Meminta 'role' secara spesifik (lebih baik dari 'SELECT *')
+        $stmt = $conn->prepare("SELECT id, username, password, role FROM users WHERE username = ?");
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -23,9 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Regenerasi session ID untuk keamanan
             session_regenerate_id(true);
 
-            // 3. Simpan informasi pengguna ke dalam session
+            // 3. Simpan informasi pengguna DAN 'role' ke dalam session
+            // Ini adalah bagian "Sesi Cerdas"
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role']; // <-- PERUBAHAN PENTING
             
             // 4. Arahkan ke halaman utama
             header("Location: index.php");

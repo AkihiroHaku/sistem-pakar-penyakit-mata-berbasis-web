@@ -1,0 +1,68 @@
+/* Menggunakan font yang sama dengan situs utama */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa; /* Latar belakang abu-abu muda */
+}
+
+/* --- Sidebar Navigasi Admin --- */
+.admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    background-color: #343a40; /* Tema gelap */
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00b0ff; /* Aksen biru */
+}
+
+.admin-sidebar .nav-link {
+    color: #adb5bd;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+}
+
+.admin-sidebar .nav-link i {
+    margin-right: 10px;
+}
+
+.admin-sidebar .nav-link:hover {
+    background-color: #495057;
+    color: white;
+}
+
+.admin-sidebar .nav-link.active {
+    background-color: #00b0ff;
+    color: white;
+    font-weight: 500;
+}
+
+.nav-item-divider {
+    height: 1px;
+    background-color: #495057;
+    margin: 20px 0;
+}
+
+/* --- Konten Utama Admin --- */
+.admin-content {
+    margin-left: 260px; /* Memberi ruang untuk sidebar */
+    padding: 30px;
+}
+
+.admin-title {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 30px;
+}

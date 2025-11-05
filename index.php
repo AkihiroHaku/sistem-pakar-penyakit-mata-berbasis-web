@@ -91,6 +91,12 @@ try {
                 <!-- Dropdown Menu untuk Opsi Profil -->
                 <div id="profile-dropdown" class="profile-dropdown">
                     <a href="#" id="open-settings-modal"><i class="fas fa-cog"></i> Pengaturan</a>
+                    <?php
+                    if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+                        echo '<a href="admin_gejala.php"><i class="fas fa-tasks"></i> Kelola Gejala</a>';
+                        echo '<a href="admin_penyakit.php"><i class="fas fa-virus"></i> Kelola Penyakit</a>';
+                    }
+                    ?>
                     <a href="#" id="open-logout-modal"><i class="fas fa-sign-out-alt"></i> Keluar</a>
                 </div>
             <?php else: ?>
