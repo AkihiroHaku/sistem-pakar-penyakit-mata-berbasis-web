@@ -1,0 +1,273 @@
+/* =====================================
+   THEME SYSTEM (Light, Dark, System)
+   ===================================== */
+
+/* 🎨 Warna dasar (mode terang / default) */
+:root {
+  --bg: #f5f7fa;
+  --text: #222;
+  --card: #ffffff;
+  --card-border: #ddd;
+  --muted: #666;
+
+  --header-start: #1e88e5;
+  --header-end: #00b0ff;
+
+  --sidebar-bg: #fff;
+  --sidebar-text: #333;
+  --sidebar-active: #e3f2fd;
+
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --input-text: #333;
+
+  --success-bg: #d4edda;
+  --success-text: #155724;
+  --success-border: #c3e6cb;
+
+  --primary-btn-start: #00b0ff;
+  --primary-btn-end: #008cff;
+  --primary-btn-text: #fff;
+}
+
+/* 🌙 Warna dasar (mode gelap) */
+body.dark-mode {
+  --bg: #0f172a;
+  --text: #e5e7eb;
+  --card: #1e293b;
+  --card-border: #334155;
+  --muted: #b0b0b0;
+
+  --header-start: #111827;
+  --header-end: #1e293b;
+
+  --sidebar-bg: #1e293b;
+  --sidebar-text: #e5e7eb;
+  --sidebar-active: #334155;
+
+  --input-bg: #0f172a;
+  --input-border: #334155;
+  --input-text: #e5e7eb;
+
+  --success-bg: #113628;
+  --success-text: #bde5c9;
+  --success-border: #1f4f36;
+
+  --primary-btn-start: #2563eb;
+  --primary-btn-end: #06b6d4;
+  --primary-btn-text: #fff;
+}
+
+/* ===================================== */
+/* === Gunakan variabel di seluruh UI === */
+/* ===================================== */
+
+/* Background & teks global */
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Header */
+.main-header {
+  background: linear-gradient(90deg, var(--header-start), var(--header-end));
+  color: var(--text);
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.sidebar a.sidebar-link {
+  color: var(--sidebar-text);
+}
+.sidebar a.sidebar-link.active {
+  background: var(--sidebar-active);
+  color: #fff;
+}
+
+/* Card & container utama */
+.card, .result-card {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Input, textarea, select */
+input, select, textarea {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Tombol utama (gradien) */
+.btn-gradient {
+  background: linear-gradient(90deg, var(--primary-btn-start), var(--primary-btn-end));
+  color: var(--primary-btn-text);
+  border: none;
+  transition: filter 0.25s ease;
+}
+body.dark-mode .btn-gradient {
+  filter: brightness(0.95);
+}
+
+/* Notifikasi / Alert */
+.alert-success {
+  background: var(--success-bg);
+  color: var(--success-text);
+  border: 1px solid var(--success-border);
+}
+
+/* Footer */
+footer {
+  color: var(--muted);
+  transition: color 0.25s ease;
+}
+
+/* === DARK MODE: dropdown keyakinan gejala === */
+body.dark-mode .symptom-item select {
+  background-color: #0f172a !important; /* override rule putih */
+  border: 1px solid #334155;
+  color: #f8fafc;
+}
+
+/* Warna item saat dropdown dibuka (Chromium/Edge/Firefox desktop) */
+body.dark-mode .symptom-item select option {
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+/* Placeholder/default option kalau ada */
+body.dark-mode .symptom-item select option[disabled],
+body.dark-mode .symptom-item select option[value=""],
+body.dark-mode .symptom-item select option[hidden] {
+  color: #94a3b8;
+}
+
+/* (opsional) gaya :focus biar jelas di gelap */
+body.dark-mode .symptom-item select:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96,165,250,.25);
+}
+
+/* ===== HILANGKAN CAHAYA PUTIH SAAT FOKUS SELECT (DARK MODE) ===== */
+body.dark-mode .symptom-item select {
+  background-color: #0f172a !important;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  outline: none !important; /* hilangkan glow putih */
+  box-shadow: none !important; /* matikan efek putih terang */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Saat hover */
+body.dark-mode .symptom-item select:hover {
+  border-color: #60a5fa; /* biru lembut */
+}
+
+/* Saat fokus */
+body.dark-mode .symptom-item select:focus {
+  border-color: #60a5fa; /* biru lembut */
+  box-shadow: 0 0 0 3px rgba(96,165,250,.2); /* efek fokus halus */
+  outline: none;
+}
+
+/* === HOVER GEJALA SAAT DARK MODE === */
+body.dark-mode .symptom-item {
+  background-color: #1e293b; /* warna dasar gelap */
+  border: 1px solid #334155;
+  color: #e5e7eb;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+body.dark-mode .symptom-item:hover {
+  background-color: #334155; /* sedikit lebih terang saat hover */
+  border-color: #60a5fa;      /* biru lembut di tepi */
+}
+
+body.dark-mode .symptom-item label {
+  color: #e5e7eb;
+}
+
+/* ==== DARK MODE UNTUK HALAMAN HASIL ANALISIS ==== */
+body.dark-mode {
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+body.dark-mode .card.diagnosis-card {
+  background-color: #1e293b;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+}
+
+/* Title & heading */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+  color: #e5e7eb;
+}
+
+/* Alert */
+body.dark-mode .alert {
+  border: 1px solid #1e293b;
+  background-color: #1e293b;
+  color: #e5e7eb;
+}
+body.dark-mode .alert-success {
+  background-color: #113628;
+  color: #bde5c9;
+  border: 1px solid #1f4f36;
+}
+body.dark-mode .alert-info {
+  background-color: #0b3a5a;
+  color: #cfe9ff;
+  border: 1px solid #1e4563;
+}
+
+/* Accordion */
+body.dark-mode .accordion-item {
+  background-color: #0f172a;
+  color: #e5e7eb;
+  border-color: #334155;
+}
+body.dark-mode .accordion-button {
+  background-color: #1e293b;
+  color: #e5e7eb;
+  border-bottom: 1px solid #334155;
+}
+body.dark-mode .accordion-button:not(.collapsed) {
+  background-color: #334155;
+  color: #fff;
+}
+
+/* Progress bar */
+body.dark-mode .progress {
+  background-color: #1e293b;
+}
+body.dark-mode .progress-bar {
+  background-color: #3b82f6; /* biru lembut */
+}
+
+/* Button */
+body.dark-mode .btn-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+body.dark-mode .btn-primary:hover {
+  background-color: #1e40af;
+  border-color: #1e40af;
+}
+
+/* Footer */
+body.dark-mode footer {
+  color: #94a3b8;
+}
+

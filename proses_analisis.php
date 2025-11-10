@@ -2,21 +2,36 @@
 session_start();
 require_once 'includes/db_connect.php';
 
-// 1. Validasi Input
-if (!isset($_POST['gejala']) || !is_array($_POST['gejala']) || empty($_POST['gejala'])) {
-    header("Location: index.php?error=no_symptoms_selected");
-    exit();
-}
-
-$gejala_dipilih_ids = $_POST['gejala'];
-$user_is_logged_in = isset($_SESSION['user_id']);
-
+// Mulai blok try...catch LEBIH AWAL
 try {
-    // LANGKAH 2: Ambil Aturan dari Database menggunakan JOIN
+    // 1. Validasi Input
+    if (!isset($_POST['gejala']) || !is_array($_POST['gejala'])) {
+        header("Location: index.php?error=no_symptoms_selected");
+        exit();
+    }
+
+    // 2. Filter gejala yang dipilih pengguna (nilai > 0)
+    $gejala_user = $_POST['gejala'];
+    $gejala_dipilih = array_filter($gejala_user, function($cf_user) {
+        return (float)$cf_user > 0;
+    });
+
+    // 3. Validasi Ulang: Pastikan ada gejala yang dipilih
+    if (empty($gejala_dipilih)) {
+        header("Location: index.php?error=no_symptoms_selected");
+        exit();
+    }
+
+    // Ambil hanya ID dari gejala yang dipilih
+    $gejala_dipilih_ids = array_keys($gejala_dipilih);
+    $user_is_logged_in = isset($_SESSION['user_id']);
+
+    // 4. Ambil Aturan dari Database (Sesuai database Anda)
     $placeholders = implode(',', array_fill(0, count($gejala_dipilih_ids), '?'));
     
     $sql_rules = "SELECT 
-                    b.idpenyakit, 
+                    b.idpenyakit,
+                    d.idgejala, 
                     d.cfpakar 
                   FROM `detail_basis_aturan` AS d
                   JOIN `basis_aturan` AS b ON d.idaturan = b.idaturan
@@ -30,19 +45,32 @@ try {
     $sql_gejala = "SELECT idgejala, nmgejala FROM gejala WHERE idgejala IN ($placeholders)";
     $stmt_gejala = $conn->prepare($sql_gejala);
     $stmt_gejala->execute($gejala_dipilih_ids);
-    $gejala_terpilih_detail = $stmt_gejala->fetchAll(PDO::FETCH_ASSOC);
+    $gejala_terpilih_detail_all = $stmt_gejala->fetchAll(PDO::FETCH_ASSOC);
 
-    // LANGKAH 3: Proses Kalkulasi Certainty Factor (CF)
+    // Kita juga perlu menyimpan nilai CF User yang dipilih
+    $gejala_terpilih_detail = [];
+    foreach($gejala_terpilih_detail_all as $gejala) {
+        $gejala['cf_user'] = (float)$gejala_dipilih[$gejala['idgejala']];
+        $gejala_terpilih_detail[] = $gejala;
+    }
+
+
+    // 5. Proses Kalkulasi Certainty Factor (CF)
     $cf_penyakit = [];
     foreach ($aturan as $rule) {
         $id_penyakit = $rule['idpenyakit'];
-        $cf_pakar = isset($rule['cfpakar']) ? (float) $rule['cfpakar'] : 0.0;
-        $cf_he = $cf_pakar * 1.0; // CF Pengguna diasumsikan 1 (pasti)
+        $id_gejala = $rule['idgejala'];
+        $cf_pakar = (float) $rule['cfpakar'];
+        
+        $cf_user = (float) $gejala_dipilih[$id_gejala]; 
+        $cf_he = $cf_pakar * $cf_user;
 
+        if ($cf_he == 0) continue; 
+
+        // INI ADALAH LOGIKA COMBINE YANG MENGATASI BUG ANDA
         if (!isset($cf_penyakit[$id_penyakit])) {
             $cf_penyakit[$id_penyakit] = $cf_he;
         } else {
-            // Kombinasikan CF
             $cf_lama = $cf_penyakit[$id_penyakit];
             if ($cf_lama >= 0 && $cf_he >= 0) {
                 $cf_penyakit[$id_penyakit] = $cf_lama + $cf_he * (1 - $cf_lama);
@@ -54,7 +82,7 @@ try {
         }
     }
 
-    // LANGKAH 4: Urutkan Hasil dan Ambil Penyakit Teratas
+    // 6. Urutkan Hasil dan Ambil Penyakit Teratas
     if (empty($cf_penyakit)) {
         header("Location: index.php?error=no_rules_matched");
         exit();
@@ -62,10 +90,10 @@ try {
 
     arsort($cf_penyakit);
     $id_penyakit_teratas = key($cf_penyakit);
-    $persentase_teratas = current($cf_penyakit) * 100;
+    $persentase_cf_teratas = current($cf_penyakit) * 100; 
 
-    // LANGKAH 5: Ambil Detail Penyakit Teratas
-    $sql_penyakit = "SELECT * FROM penyakit WHERE id = ?"; // Menggunakan kolom 'id' sesuai screenshot terakhir Anda
+    // 7. Ambil Detail Penyakit Teratas (Menggunakan 'id' yang benar)
+    $sql_penyakit = "SELECT * FROM penyakit WHERE id = ?";
     $stmt_penyakit = $conn->prepare($sql_penyakit);
     $stmt_penyakit->execute([$id_penyakit_teratas]);
     $penyakit_teratas_detail = $stmt_penyakit->fetch(PDO::FETCH_ASSOC);
@@ -74,47 +102,40 @@ try {
         throw new Exception("Detail penyakit untuk ID $id_penyakit_teratas tidak ditemukan.");
     }
     
-    // =====================================================================
-    // === LANGKAH 6: SIMPAN HASIL KE RIWAYAT JIKA PENGGUNA SUDAH LOGIN ===
-    // =====================================================================
+    // 8. Simpan Hasil ke Riwayat (jika login)
     if ($user_is_logged_in) {
-        // Mulai transaksi database untuk memastikan semua query berhasil
         $conn->beginTransaction();
         
-        // a. Simpan ke tabel `konsultasi`
         $sql_insert_konsultasi = "INSERT INTO konsultasi (id_user, id_penyakit_hasil, persentase_hasil) VALUES (?, ?, ?)";
         $stmt_konsultasi = $conn->prepare($sql_insert_konsultasi);
         $stmt_konsultasi->execute([
             $_SESSION['user_id'],
             $id_penyakit_teratas,
-            $persentase_teratas
+            $persentase_cf_teratas 
         ]);
         
-        // Ambil ID dari konsultasi yang baru saja disimpan
         $id_konsultasi_baru = $conn->lastInsertId();
         
-        // b. Simpan setiap gejala yang dipilih ke tabel `detail_konsultasi`
-        $sql_insert_detail = "INSERT INTO detail_konsultasi (idkonsul, idgejala) VALUES (?, ?)";
+        // Menggunakan 'id_konsultasi' yang benar sesuai .sql
+        $sql_insert_detail = "INSERT INTO detail_konsultasi (id_konsultasi, idgejala, cf_user) VALUES (?, ?, ?)";
         $stmt_detail = $conn->prepare($sql_insert_detail);
-        foreach ($gejala_dipilih_ids as $id_gejala) {
-            $stmt_detail->execute([$id_konsultasi_baru, $id_gejala]);
+        foreach ($gejala_dipilih as $id_gejala => $cf_user) {
+            $stmt_detail->execute([$id_konsultasi_baru, $id_gejala, (float)$cf_user]);
         }
         
-        // Selesaikan transaksi
         $conn->commit();
     }
 
-    // LANGKAH 7: Simpan Semua Hasil ke Session untuk ditampilkan
+    // 9. Simpan Semua Hasil ke Session untuk ditampilkan
     $_SESSION['hasil_cf'] = $cf_penyakit; 
     $_SESSION['penyakit_teratas'] = $penyakit_teratas_detail;
-    $_SESSION['gejala_terpilih'] = $gejala_terpilih_detail;
+    $_SESSION['gejala_terpilih'] = $gejala_terpilih_detail; 
 
-    // LANGKAH 8: Arahkan ke Halaman Hasil
+    // 10. Arahkan ke Halaman Hasil
     header("Location: analisis.php");
     exit();
 
 } catch (PDOException $e) {
-    // Jika ada error database, batalkan transaksi
     if (isset($conn) && $conn->inTransaction()) {
         $conn->rollBack();
     }
@@ -123,4 +144,3 @@ try {
     die("Terjadi kesalahan: " . $e->getMessage());
 }
 ?>
-

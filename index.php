@@ -28,12 +28,17 @@ if ($user_is_logged_in) {
     }
 }
 
-// Ambil semua data gejala
+// Ambil semua data
 try {
-    $query = "SELECT idgejala, nmgejala FROM gejala ORDER BY idgejala ASC";
-    $stmt = $conn->prepare($query);
-    $stmt->execute();
-    $daftar_gejala = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $query_gejala = "SELECT idgejala, nmgejala FROM gejala ORDER BY idgejala ASC";
+    $stmt_gejala = $conn->prepare($query_gejala);
+    $stmt_gejala->execute();
+    $daftar_gejala = $stmt_gejala->fetchAll(PDO::FETCH_ASSOC);
+
+    $query_keyakinan = "SELECT label, nilai FROM cf_keyakinan ORDER BY nilai ASC";
+    $stmt_keyakinan = $conn->prepare($query_keyakinan);
+    $stmt_keyakinan->execute();
+    $daftar_keyakinan = $stmt_keyakinan->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Error Kritis: Tidak bisa mengambil data gejala. " . $e->getMessage());
 }
@@ -47,6 +52,7 @@ try {
     <title>Sistem Pakar Penyakit Mata</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 
 <body>
@@ -95,6 +101,8 @@ try {
                     if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
                         echo '<a href="admin_gejala.php"><i class="fas fa-tasks"></i> Kelola Gejala</a>';
                         echo '<a href="admin_penyakit.php"><i class="fas fa-virus"></i> Kelola Penyakit</a>';
+                        echo '<a href="admin_aturan.php"><i class="fas fa-network-wired"></i> Kelola Aturan</a>';
+                        echo '<a href="admin_keyakinan.php"><i class="fas fa-percent"></i> Kelola Keyakinan</a>';
                     }
                     ?>
                     <a href="#" id="open-logout-modal"><i class="fas fa-sign-out-alt"></i> Keluar</a>
@@ -104,7 +112,7 @@ try {
             <?php endif; ?>
         </div>
     </div>
-
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
     <!-- Main Content Wrapper -->
     <div id="main-content-wrapper">
         <header class="main-header">
@@ -126,11 +134,18 @@ try {
                 </div>
                 <form action="proses_analisis.php" method="POST">
                     <div class="symptoms-list">
-                        <?php if (count($daftar_gejala) > 0): ?>
+                        <?php if (count($daftar_gejala) > 0 && count($daftar_keyakinan) > 0): ?>
                             <?php foreach ($daftar_gejala as $gejala): ?>
                                 <div class="symptom-item">
-                                    <label for="gejala<?= $gejala['idgejala'] ?>"><?= htmlspecialchars($gejala['nmgejala']) ?></label>
-                                    <input type="checkbox" id="gejala<?= $gejala['idgejala'] ?>" name="gejala[]" value="<?= $gejala['idgejala'] ?>">
+                                    <label for="gejala_<?= $gejala['idgejala'] ?>"><?= htmlspecialchars($gejala['nmgejala']) ?></label>
+
+                                    <select name="gejala[<?= $gejala['idgejala'] ?>]" id="gejala_<?= $gejala['idgejala'] ?>">
+                                        <?php foreach ($daftar_keyakinan as $keyakinan): ?>
+                                            <option value="<?= $keyakinan['nilai'] ?>" <?= $keyakinan['nilai'] == 0.00 ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($keyakinan['label']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -145,7 +160,9 @@ try {
         </main>
     </div>
 
-    <!-- Jendela Modal Pengaturan -->
+    <!-- ============================================== -->
+    <!-- === MODAL PENGATURAN (KONTEN DIPERBARUI) === -->
+    <!-- ============================================== -->
     <div id="settings-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -159,21 +176,67 @@ try {
                     <a href="#" class="modal-tab-link" data-tab="about"><i class="fas fa-info-circle"></i> About</a>
                 </div>
                 <div class="modal-main-content">
+
+                    <!-- Konten Tab General -->
                     <div id="general" class="modal-tab-content active">
-                        <h4>General Settings</h4>
-                        <p>Pengaturan umum.</p>
+                        <h4>Pengaturan Umum</h4>
+                        <div class="setting-item">
+                            <label>Tema Tampilan</label>
+                            <div class="theme-switcher">
+                                <button id="theme-light" class="theme-btn active"><i class="fas fa-sun"></i> Terang</button>
+                                <button id="theme-dark" class="theme-btn"><i class="fas fa-moon"></i> Gelap</button>
+                                <button id="theme-system" class="theme-btn"><i class="fas fa-desktop"></i> Sistem</button>
+                            </div>
+                        </div>
                     </div>
+                    <!-- Konten Tab Profile -->
                     <div id="profile" class="modal-tab-content">
-                        <h4>Profile Information</h4>
-                        <p>Informasi profil pengguna.</p>
+                        <h4>Informasi Profil</h4>
+                        <div class="setting-item">
+                            <label>Username Anda</label>
+                            <p><strong><?= htmlspecialchars($username) ?></strong> (Role: <?= htmlspecialchars($_SESSION['role'] ?? 'Tamu') ?>)</p>
+                        </div>
+                        <hr>
+
+                        <h5>Ubah Password</h5>
+                        <div id="profile-message"></div>
+
+                        <!-- Tombol untuk menampilkan/menyembunyikan form -->
+                        <button type="button" id="show-password-form-btn" class="btn-gradient" style="width:auto;padding:10px 20px;">
+                            <i class="fas fa-key"></i> Ubah Password
+                        </button>
+
+                        <!-- Form Ubah Password (awal: tersembunyi) -->
+                        <form id="change-password-form" class="profile-form" method="post" action="change_password.php" hidden>
+                            <!-- flag agar backend tahu memang ingin ubah password -->
+                            <input type="hidden" name="change_password" id="change_password" value="0">
+
+                            <div class="input-group">
+                                <label for="old_password">Password Lama</label>
+                                <input type="password" id="old_password" name="old_password" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label for="new_password">Password Baru (Min. 8 karakter)</label>
+                                <input type="password" id="new_password" name="new_password" minlength="8" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label for="confirm_new_password">Konfirmasi Password Baru</label>
+                                <input type="password" id="confirm_new_password" name="confirm_new_password" minlength="8" disabled>
+                            </div>
+
+                            <button type="submit" class="btn-gradient" style="width:auto;padding:10px 20px;">
+                                <i class="fas fa-save"></i> Simpan Password
+                            </button>
+                        </form>
                     </div>
+                    <!-- Konten Tab About -->
                     <div id="about" class="modal-tab-content">
-                        <h4>About This Application</h4>
+                        <h4>Tentang Aplikasi</h4>
                         <p>Website ini dibuat oleh kelompok 4 😎😎
                             <br> 1. M. Nabilul Arsyad = 101230012 <br>
-                                 2. M. Khoirul anwar = 101230107 <br>
-                                 3. Siti Nurlela = 101230065 <br>
-                                 4. Umi Aimatul Fauziyah = 101230019 <br>
+                            2. M. Khoirul anwar = 101230107 <br>
+                            3. Siti Nurlela = 101230065 <br>
+                            4. Umi Aimatul Fauziyah = 101230019 <br>
                         </p>
                     </div>
                 </div>

@@ -113,4 +113,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // --- Logika untuk Tombol Edit Keyakinan ---
+    const editKeyakinanButtons = document.querySelectorAll('.btn-edit-keyakinan');
+    const formTambahKeyakinan = document.getElementById('form-tambah-keyakinan');
+    const formEditKeyakinan = document.getElementById('form-edit-keyakinan');
+    const btnBatalEditKeyakinan = document.getElementById('btn-batal-edit-keyakinan');
+
+    if (formEditKeyakinan && formTambahKeyakinan && btnBatalEditKeyakinan) {
+        editKeyakinanButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const label = this.dataset.label;
+                const nilai = this.dataset.nilai;
+
+                document.getElementById('id_keyakinan_edit').value = id;
+                document.getElementById('label_edit').value = label;
+                document.getElementById('nilai_edit').value = nilai;
+
+                formTambahKeyakinan.style.display = 'none';
+                formEditKeyakinan.style.display = 'block';
+                formEditKeyakinan.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        btnBatalEditKeyakinan.addEventListener('click', function() {
+            formEditKeyakinan.style.display = 'none';
+            formTambahKeyakinan.style.display = 'block';
+        });
+    }
+
+    // --- Logika untuk Konfirmasi Hapus Keyakinan ---
+    const deleteKeyakinanButtons = document.querySelectorAll('.btn-delete-keyakinan');
+    deleteKeyakinanButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            const isConfirmed = confirm('Apakah Anda yakin ingin menghapus nilai keyakinan ini?');
+            if (isConfirmed) {
+                window.location.href = this.href;
+            }
+        });
+    });
+
 });

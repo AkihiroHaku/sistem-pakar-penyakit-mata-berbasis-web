@@ -50,6 +50,11 @@ try {
                     <i class="fas fa-network-wired"></i> Kelola Aturan
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="admin_keyakinan.php">
+                    <i class="fas fa-percent"></i> Kelola Keyakinan
+                </a>
+            </li>
             <li class="nav-item-divider"></li>
             <li class="nav-item">
                 <a class="nav-link" href="index.php" target="_blank">

@@ -21,7 +21,7 @@ body {
     height: 100%;
     width: 280px;
     position: fixed;
-    z-index: 1001;
+    z-index: 3001;
     top: 0;
     left: -280px; /* Sembunyi di kiri by default */
     background-color: #9999998a;
@@ -52,7 +52,7 @@ body {
     top: 10px;
     right: 25px;
     font-size: 36px;
-    color: #ffffff;
+    color: #9f9c9c;
     text-decoration: none;
     transition: color 0.3s;
 }
@@ -80,7 +80,7 @@ body {
 
 .sidebar a.sidebar-link:hover {
     background-color: #f0f5fa;
-    color: #1e88e5;
+    color: #0088ff;
 }
 
 .sidebar a.sidebar-link.active {
@@ -488,8 +488,498 @@ body {
 }
 
 footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px
+    font-size: 0.9rem;
+    text-align: center;
+    color: #6c757d; 
+    padding: 20px 0;
+    margin-top: 40px;
 }
+
+/* code responsif
+
+=================================== */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3000;    
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+/* Di belakang sidebar */
+    display: none; 
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+
+@media (max-width: 768px) {
+    /* Header */
+    .header-text h1 {
+        font-size: 1.5em; /* Kecilkan font header */
+    }
+    .header-text p {
+        font-size: 0.9em;
+    }
+    .menu-button {
+        font-size: 24px;
+        left: 15px;
+    }
+    
+    /* Konten Utama */
+    .main-content {
+        margin-top: -20px; /* Kurangi jorokan ke atas */
+        padding: 15px;
+    }
+
+    .card {
+        padding: 20px; /* Kurangi padding di dalam kartu */
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 250px; /* Buat sidebar sedikit lebih sempit di HP */
+        left: -250px; /* Sesuaikan dengan JS */
+        z-index: 3001; /* Pastikan di atas overlay */
+    }
+    
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        min-height: 250px;
+    }
+    .modal-body {
+        flex-direction: column; /* Tumpuk tab modal di HP */
+        min-height: 250px;
+    }
+    .modal-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        overflow-x: auto;
+    }
+    .modal-tab-link {
+        border-left: none;
+        border-bottom: 3px solid transparent;
+    }
+    .modal-tab-link.active {
+        border-left: none;
+        border-bottom-color: #007bff;
+    }
+}
+
+.symptom-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s;
+}
+
+.symptom-item label {
+    cursor: pointer;
+    flex-grow: 1;
+    margin-right: 15px;
+    font-weight: 500;
+}
+
+/* Styling untuk <select> dropdown */
+.symptom-item select {
+    flex-shrink: 0;
+    width: 200px; /* Atur lebar dropdown */
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Styling untuk HP */
+@media (max-width: 768px) {
+    .symptom-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .symptom-item select {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+/* ================================== */
+/* === STYLE UNTUK JENDELA MODAL === */
+/* ================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3004;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.modal-content {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+/* Hanya modal yang BUKAN .modal-sm */
+.modal-content:not(.modal-sm) { 
+    max-width: 700px; 
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-bottom: 1px solid #dee2e6;
+    background-color: #fff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.modal-header h3 { 
+    margin: 0; 
+    font-size: 1.25rem; 
+    color: #333; 
+}
+.modal-close-btn { 
+    background: none; 
+    border: none; 
+    font-size: 2rem; 
+    color: #888; 
+    cursor: pointer; 
+    line-height: 1; 
+}
+.modal-body { 
+    display: flex; 
+    min-height: 350px; 
+}
+.modal-sidebar {
+    width: 200px;
+    background-color: #fff;
+    padding: 15px 0;
+    border-right: 1px solid #dee2e6;
+    border-bottom-left-radius: 12px;
+}
+.modal-tab-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+}
+.modal-tab-link i { 
+    margin-right: 10px; 
+}
+.modal-tab-link:hover { 
+    background-color: #f1f1f1; 
+}
+.modal-tab-link.active { 
+    background-color: #e8f0ff; 
+    color: #1e88e5; 
+    border-left-color: #1e88e5; 
+}
+.modal-main-content { 
+    flex-grow: 1; 
+    padding: 25px; 
+}
+.modal-tab-content { 
+    display: none; 
+}
+.modal-tab-content.active { 
+    display: block; 
+}
+
+/* === Gaya Baru untuk Modal Konten === */
+.setting-item {
+    margin-bottom: 20px;
+}
+.setting-item label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+.theme-switcher {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.theme-btn {
+    flex: 1;
+    background: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: #555;
+    transition: background-color 0.2s, color 0.2s;
+}
+.theme-btn:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+.theme-btn.active {
+    background-color: #00b0ff;
+    color: white;
+}
+.profile-form {
+    margin-top: 15px;
+}
+.profile-form .input-group {
+    margin-bottom: 15px;
+}
+#profile-message {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    display: none; /* Sembunyi by default */
+}
+#profile-message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+#profile-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* === DARK MODE untuk Modal Pengaturan === */
+body.dark-mode .modal-content {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
+body.dark-mode .modal-header,
+body.dark-mode .modal-sidebar {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+body.dark-mode .modal-header h3 {
+    color: #e0e0e0;
+}
+body.dark-mode .modal-close-btn {
+    color: #999;
+}
+body.dark-mode .modal-tab-link {
+    color: #b0b0b0;
+}
+body.dark-mode .modal-tab-link:hover {
+    background-color: #333;
+}
+body.dark-mode .modal-tab-link.active {
+    background-color: #333;
+    color: #00b0ff;
+}
+body.dark-mode .setting-item label {
+    color: #b0b0b0;
+}
+body.dark-mode .theme-switcher {
+    border-color: #444;
+}
+body.dark-mode .theme-btn {
+    background-color: #2a2a2a;
+    color: #b0b0b0;
+}
+body.dark-mode .theme-btn:not(:last-child) {
+    border-right-color: #444;
+}
+body.dark-mode .theme-btn.active {
+    background-color: #00b0ff;
+    color: white;
+}
+body.dark-mode .profile-form label {
+    color: #b0b0b0;
+}
+body.dark-mode .profile-form input {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #e0e0e0;
+}
+body.dark-mode .profile-form input:focus {
+    background-color: #333;
+    border-color: #00b0ff;
+}
+
+/* === RESPONSIVE untuk Modal Pengaturan === */
+@media (max-width: 768px) {
+    .modal-content { 
+        width: 95%; 
+    }
+    .modal-body { 
+        flex-direction: column; 
+        min-height: 250px; 
+    }
+    .modal-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        overflow-x: auto;
+    }
+    .modal-tab-link { 
+        border-left: none; 
+        border-bottom: 3px solid transparent; 
+    }
+    .modal-tab-link.active { 
+        border-left: none; 
+        border-bottom-color: #007bff; 
+    }
+    .theme-switcher { 
+        flex-direction: column; 
+    }
+    .theme-btn:not(:last-child) { 
+        border-right: none; 
+        border-bottom: 1px solid #ccc; 
+    }
+
+    /* Dark mode responsive */
+    body.dark-mode .modal-sidebar {
+        border-bottom-color: #333;
+    }
+    body.dark-mode .theme-btn:not(:last-child) {
+        border-bottom-color: #444;
+    }
+}
+
+/* ================================== */
+/* === GAYA BARU UNTUK KONTEN MODAL === */
+/* ================================== */
+
+.setting-item {
+    margin-bottom: 20px;
+}
+.setting-item label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+.theme-switcher {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.theme-btn {
+    flex: 1;
+    background: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: #555;
+    transition: background-color 0.2s, color 0.2s;
+}
+.theme-btn:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+.theme-btn.active {
+    background-color: #00b0ff;
+    color: white;
+}
+.profile-form {
+    margin-top: 15px;
+}
+/* Menggunakan .profile-form .input-group agar tidak bentrok dengan .input-group global */
+.profile-form .input-group {
+    margin-bottom: 15px;
+    text-align: left; /* Memastikan label rata kiri */
+}
+.profile-form .input-group label {
+    font-size: 0.9rem;
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+}
+.profile-form .input-group input {
+    /* Pastikan input form ini sama dengan input auth */
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Penting agar padding tidak merusak lebar */
+}
+.profile-form .input-group input:focus {
+    outline: none;
+    border-color: #00b0ff;
+}
+
+#profile-message {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    display: none; /* Sembunyi by default */
+}
+#profile-message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+#profile-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* === DARK MODE untuk Konten Modal === *
+body.dark-mode .setting-item label {
+    color: #b0b0b0;
+}
+body.dark-mode .theme-switcher {
+    border-color: #444;
+}
+body.dark-mode .theme-btn {
+    background-color: #2a2a2a;
+    color: #b0b0b0;
+}
+body.dark-mode .theme-btn:not(:last-child) {
+    border-right-color: #444;
+}
+body.dark-mode .theme-btn.active {
+    background-color: #00b0ff;
+    color: white;
+}
+body.dark-mode .profile-form label {
+    color: #b0b0b0;
+}
+body.dark-mode .profile-form input {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #e0e0e0;
+}
+body.dark-mode .profile-form input:focus {
+    background-color: #333;
+    border-color: #00b0ff;
+}
+body.dark-mode #profile-message.success {
+    background-color: #1a3a24;
+    color: #a6d9b3;
+}
+body.dark-mode #profile-message.error {
+    background-color: #4a2125;
+    color: #f1b0b7;
+}
+

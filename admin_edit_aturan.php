@@ -74,6 +74,7 @@ try {
             <li class="nav-item"><a class="nav-link" href="admin_gejala.php"><i class="fas fa-tasks"></i> Kelola Gejala</a></li>
             <li class="nav-item"><a class="nav-link" href="admin_penyakit.php"><i class="fas fa-virus"></i> Kelola Penyakit</a></li>
             <li class="nav-item"><a class="nav-link active" href="admin_aturan.php"><i class="fas fa-network-wired"></i> Kelola Aturan</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_keyakinan.php"><i class="fas fa-percent"></i> Kelola Keyakinan</a></li>
             <li class="nav-item-divider"></li>
             <li class="nav-item"><a class="nav-link" href="index.php" target="_blank"><i class="fas fa-globe"></i> Lihat Situs Publik</a></li>
             <li class="nav-item"><a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
