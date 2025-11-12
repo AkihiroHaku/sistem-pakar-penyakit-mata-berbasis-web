@@ -32,7 +32,7 @@ $persentase_teratas = current($hasil_cf); // Nilai CF tertinggi
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     <!-- Pastikan path CSS ini benar -->
     <link rel="stylesheet" href="css/hasil-style.css">
-    <link rel="stylesheet" href="css/theme.css">
+    <!-- <link rel="stylesheet" href="css/theme.css"> -->
 </head>
 <body>
     <header class="main-header">

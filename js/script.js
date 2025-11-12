@@ -336,4 +336,45 @@ document.addEventListener('DOMContentLoaded', function () {
         applyTheme(saved, { save: false });
     })();
 
+    // === Riwayat: toggle menu titik-tiga ===
+    (function () {
+        const section = document.querySelector('.history-section');
+        if (!section) return;
+
+        let openMenu = null;
+
+        function closeMenu() {
+            if (openMenu) { openMenu.classList.remove('show'); openMenu = null; }
+        }
+
+        // Delegasi event agar ringan
+        section.addEventListener('click', (e) => {
+            const btn = e.target.closest('.history-options-btn');
+            const menu = e.target.closest('.history-dropdown');
+
+            // klik di tombol titik-3
+            if (btn) {
+                e.stopPropagation();
+                const container = btn.closest('.history-item');
+                const dd = container.querySelector('.history-dropdown');
+                if (!dd) return;
+                if (openMenu && openMenu !== dd) closeMenu();
+                dd.classList.toggle('show');
+                openMenu = dd.classList.contains('show') ? dd : null;
+                return;
+            }
+
+            // klik di luar menu -> tutup
+            if (!menu) closeMenu();
+        });
+
+        // Tutup saat scroll sidebar (opsional)
+        const sidebar = document.getElementById('sidebar-menu');
+        if (sidebar) sidebar.addEventListener('scroll', closeMenu, { passive: true });
+
+        // Tutup dengan ESC
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+    })();
 }); // <-- AKHIR DARI DOMContentLoaded

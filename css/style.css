@@ -12,9 +12,16 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #E8F0F2;
     color: #333;
-    transition: margin-left .5s; /* Animasi saat sidebar muncul */
+    transition: margin-left .5s;
+    /* Animasi saat sidebar muncul */
 }
 
+a {
+    color: rgb(0, 0, 0);
+    /* warna teks */
+    text-decoration: none;
+    /* hilangkan garis bawah */
+}
 
 /* --- STYLE SIDEBAR MENU --- */
 .sidebar {
@@ -23,7 +30,8 @@ body {
     position: fixed;
     z-index: 3001;
     top: 0;
-    left: -280px; /* Sembunyi di kiri by default */
+    left: -280px;
+    /* Sembunyi di kiri by default */
     background-color: #9999998a;
     overflow-x: hidden;
     transition: 0.5s;
@@ -56,6 +64,7 @@ body {
     text-decoration: none;
     transition: color 0.3s;
 }
+
 .close-btn:hover {
     color: #333;
 }
@@ -112,10 +121,12 @@ body {
 
 /* --- STYLE FOOTER SIDEBAR BARU --- */
 .sidebar-footer {
-    margin-top: auto; /* Mendorong footer ke bawah */
+    margin-top: auto;
+    /* Mendorong footer ke bawah */
     padding: 15px;
     border-top: 1px solid #f0f0f0;
-    position: relative; /* Diperlukan untuk positioning dropdown */
+    position: relative;
+    /* Diperlukan untuk positioning dropdown */
 }
 
 .user-profile-display {
@@ -125,13 +136,16 @@ body {
     border-radius: 8px;
     transition: background-color 0.2s;
 }
+
 .user-profile-display:hover {
     background-color: #f0f5fa;
 }
+
 .profile-icon {
     font-size: 1.8rem;
     color: #555;
 }
+
 .username-text {
     margin-left: 10px;
     font-weight: 500;
@@ -141,6 +155,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .profile-options-btn {
     background: none;
     border: none;
@@ -150,26 +165,31 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
 }
+
 .profile-options-btn:hover {
     background-color: #e0e0e0;
 }
 
 /* Dropdown Menu untuk Profil */
 .profile-dropdown {
-    display: none; /* Sembunyikan by default */
+    display: none;
+    /* Sembunyikan by default */
     position: absolute;
-    bottom: calc(100% - 10px); /* Muncul di atas footer dengan sedikit jarak */
+    bottom: calc(100% - 10px);
+    /* Muncul di atas footer dengan sedikit jarak */
     right: 15px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
     z-index: 1002;
     width: 200px;
     overflow: hidden;
 }
+
 .profile-dropdown.show {
     display: block;
 }
+
 .profile-dropdown a {
     display: flex;
     align-items: center;
@@ -179,13 +199,16 @@ body {
     text-decoration: none;
     font-size: 0.95rem;
 }
+
 .profile-dropdown a:hover {
     background-color: #f0f5fa;
 }
+
 .profile-dropdown i {
     width: 20px;
     text-align: center;
 }
+
 .sidebar-footer .auth-link {
     margin: 0;
 }
@@ -201,7 +224,7 @@ body {
     background: linear-gradient(90deg, #1e88e5, #00b0ff);
     color: white;
     padding: 25px 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
@@ -257,7 +280,8 @@ body {
 
 #gejala-search {
     width: 100%;
-    padding: 12px 20px 12px 45px; /* Padding kiri untuk ikon */
+    padding: 12px 20px 12px 45px;
+    /* Padding kiri untuk ikon */
     border: 1px solid #ddd;
     border-radius: 25px;
     font-size: 1rem;
@@ -274,7 +298,7 @@ body {
 .card {
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding: 30px;
     max-width: 800px;
     margin: 0 auto;
@@ -352,7 +376,8 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    display: none; /* Sembunyikan secara default */
+    display: none;
+    /* Sembunyikan secara default */
     align-items: center;
     justify-content: center;
     z-index: 2000;
@@ -363,7 +388,7 @@ body {
 .modal-content {
     background-color: #f8f9fa;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -372,7 +397,8 @@ body {
 }
 
 .modal-content.modal-sm {
-    max-width: 400px; /* Ukuran lebih kecil untuk modal logout */
+    max-width: 400px;
+    /* Ukuran lebih kecil untuk modal logout */
 }
 
 .modal-content:not(.modal-sm) {
@@ -410,13 +436,15 @@ body {
     min-height: 350px;
 }
 
-.modal-body-centered { /* Untuk modal logout */
+.modal-body-centered {
+    /* Untuk modal logout */
     padding: 30px;
     text-align: center;
     background-color: #fff;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
 }
+
 .modal-body-centered p {
     margin-bottom: 20px;
 }
@@ -438,12 +466,15 @@ body {
     font-weight: 500;
     border-left: 3px solid transparent;
 }
+
 .modal-tab-link i {
     margin-right: 10px;
 }
+
 .modal-tab-link:hover {
     background-color: #f1f1f1;
 }
+
 .modal-tab-link.active {
     background-color: #e8f0ff;
     color: #1e88e5;
@@ -458,6 +489,7 @@ body {
 .modal-tab-content {
     display: none;
 }
+
 .modal-tab-content.active {
     display: block;
 }
@@ -468,6 +500,7 @@ body {
     gap: 15px;
     justify-content: center;
 }
+
 .logout-actions .btn-danger {
     background: linear-gradient(90deg, #e74c3c, #c0392b);
     color: white;
@@ -477,6 +510,7 @@ body {
     border-radius: 20px;
     text-decoration: none;
 }
+
 .logout-actions .btn-secondary {
     background-color: #bdc3c7;
     color: #34495e;
@@ -490,7 +524,7 @@ body {
 footer {
     font-size: 0.9rem;
     text-align: center;
-    color: #6c757d; 
+    color: #6c757d;
     padding: 20px 0;
     margin-top: 40px;
 }
@@ -502,12 +536,12 @@ footer {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 3000;    
+    z-index: 3000;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
-/* Di belakang sidebar */
-    display: none; 
+    background: rgba(0, 0, 0, 0.5);
+    /* Di belakang sidebar */
+    display: none;
     transition: opacity 0.3s ease;
     opacity: 0;
 }
@@ -518,44 +552,56 @@ footer {
 
 
 @media (max-width: 768px) {
+
     /* Header */
     .header-text h1 {
-        font-size: 1.5em; /* Kecilkan font header */
+        font-size: 1.5em;
+        /* Kecilkan font header */
     }
+
     .header-text p {
         font-size: 0.9em;
     }
+
     .menu-button {
         font-size: 24px;
         left: 15px;
     }
-    
+
     /* Konten Utama */
     .main-content {
-        margin-top: -20px; /* Kurangi jorokan ke atas */
+        margin-top: -20px;
+        /* Kurangi jorokan ke atas */
         padding: 15px;
     }
 
     .card {
-        padding: 20px; /* Kurangi padding di dalam kartu */
+        padding: 20px;
+        /* Kurangi padding di dalam kartu */
     }
 
     /* Sidebar */
     .sidebar {
-        width: 250px; /* Buat sidebar sedikit lebih sempit di HP */
-        left: -250px; /* Sesuaikan dengan JS */
-        z-index: 3001; /* Pastikan di atas overlay */
+        width: 250px;
+        /* Buat sidebar sedikit lebih sempit di HP */
+        left: -250px;
+        /* Sesuaikan dengan JS */
+        z-index: 3001;
+        /* Pastikan di atas overlay */
     }
-    
+
     /* Modal */
     .modal-content {
         width: 95%;
         min-height: 250px;
     }
+
     .modal-body {
-        flex-direction: column; /* Tumpuk tab modal di HP */
+        flex-direction: column;
+        /* Tumpuk tab modal di HP */
         min-height: 250px;
     }
+
     .modal-sidebar {
         width: 100%;
         border-right: none;
@@ -563,10 +609,12 @@ footer {
         display: flex;
         overflow-x: auto;
     }
+
     .modal-tab-link {
         border-left: none;
         border-bottom: 3px solid transparent;
     }
+
     .modal-tab-link.active {
         border-left: none;
         border-bottom-color: #007bff;
@@ -594,7 +642,8 @@ footer {
 /* Styling untuk <select> dropdown */
 .symptom-item select {
     flex-shrink: 0;
-    width: 200px; /* Atur lebar dropdown */
+    width: 200px;
+    /* Atur lebar dropdown */
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -610,6 +659,7 @@ footer {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .symptom-item select {
         width: 100%;
         margin-top: 10px;
@@ -633,20 +683,23 @@ footer {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 .modal-content {
     background-color: #f8f9fa;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     width: 90%;
     display: flex;
     flex-direction: column;
     transform: scale(0.95);
     transition: transform 0.3s ease;
 }
+
 /* Hanya modal yang BUKAN .modal-sm */
-.modal-content:not(.modal-sm) { 
-    max-width: 700px; 
+.modal-content:not(.modal-sm) {
+    max-width: 700px;
 }
+
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -657,23 +710,27 @@ footer {
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
 }
-.modal-header h3 { 
-    margin: 0; 
-    font-size: 1.25rem; 
-    color: #333; 
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
 }
-.modal-close-btn { 
-    background: none; 
-    border: none; 
-    font-size: 2rem; 
-    color: #888; 
-    cursor: pointer; 
-    line-height: 1; 
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
 }
-.modal-body { 
-    display: flex; 
-    min-height: 350px; 
+
+.modal-body {
+    display: flex;
+    min-height: 350px;
 }
+
 .modal-sidebar {
     width: 200px;
     background-color: #fff;
@@ -681,6 +738,7 @@ footer {
     border-right: 1px solid #dee2e6;
     border-bottom-left-radius: 12px;
 }
+
 .modal-tab-link {
     display: flex;
     align-items: center;
@@ -690,44 +748,53 @@ footer {
     font-weight: 500;
     border-left: 3px solid transparent;
 }
-.modal-tab-link i { 
-    margin-right: 10px; 
+
+.modal-tab-link i {
+    margin-right: 10px;
 }
-.modal-tab-link:hover { 
-    background-color: #f1f1f1; 
+
+.modal-tab-link:hover {
+    background-color: #f1f1f1;
 }
-.modal-tab-link.active { 
-    background-color: #e8f0ff; 
-    color: #1e88e5; 
-    border-left-color: #1e88e5; 
+
+.modal-tab-link.active {
+    background-color: #e8f0ff;
+    color: #1e88e5;
+    border-left-color: #1e88e5;
 }
-.modal-main-content { 
-    flex-grow: 1; 
-    padding: 25px; 
+
+.modal-main-content {
+    flex-grow: 1;
+    padding: 25px;
 }
-.modal-tab-content { 
-    display: none; 
+
+.modal-tab-content {
+    display: none;
 }
-.modal-tab-content.active { 
-    display: block; 
+
+.modal-tab-content.active {
+    display: block;
 }
 
 /* === Gaya Baru untuk Modal Konten === */
 .setting-item {
     margin-bottom: 20px;
 }
+
 .setting-item label {
     font-weight: 600;
     color: #555;
     margin-bottom: 8px;
     display: block;
 }
+
 .theme-switcher {
     display: flex;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
 }
+
 .theme-btn {
     flex: 1;
     background: #fff;
@@ -737,31 +804,39 @@ footer {
     color: #555;
     transition: background-color 0.2s, color 0.2s;
 }
+
 .theme-btn:not(:last-child) {
     border-right: 1px solid #ccc;
 }
+
 .theme-btn.active {
     background-color: #00b0ff;
     color: white;
 }
+
 .profile-form {
     margin-top: 15px;
 }
+
 .profile-form .input-group {
     margin-bottom: 15px;
 }
+
 #profile-message {
     font-size: 0.9rem;
     font-weight: 500;
     padding: 10px;
     border-radius: 6px;
     margin-bottom: 15px;
-    display: none; /* Sembunyi by default */
+    display: none;
+    /* Sembunyi by default */
 }
+
 #profile-message.success {
     background-color: #d4edda;
     color: #155724;
 }
+
 #profile-message.error {
     background-color: #f8d7da;
     color: #721c24;
@@ -772,52 +847,66 @@ body.dark-mode .modal-content {
     background-color: #2a2a2a;
     color: #e0e0e0;
 }
+
 body.dark-mode .modal-header,
 body.dark-mode .modal-sidebar {
     background-color: #1e1e1e;
     border-color: #333;
 }
+
 body.dark-mode .modal-header h3 {
     color: #e0e0e0;
 }
+
 body.dark-mode .modal-close-btn {
     color: #999;
 }
+
 body.dark-mode .modal-tab-link {
     color: #b0b0b0;
 }
+
 body.dark-mode .modal-tab-link:hover {
     background-color: #333;
 }
+
 body.dark-mode .modal-tab-link.active {
     background-color: #333;
     color: #00b0ff;
 }
+
 body.dark-mode .setting-item label {
     color: #b0b0b0;
 }
+
 body.dark-mode .theme-switcher {
     border-color: #444;
 }
+
 body.dark-mode .theme-btn {
     background-color: #2a2a2a;
     color: #b0b0b0;
 }
+
 body.dark-mode .theme-btn:not(:last-child) {
     border-right-color: #444;
 }
+
 body.dark-mode .theme-btn.active {
     background-color: #00b0ff;
     color: white;
 }
+
 body.dark-mode .profile-form label {
     color: #b0b0b0;
 }
+
 body.dark-mode .profile-form input {
     background-color: #2a2a2a;
     border-color: #444;
     color: #e0e0e0;
 }
+
 body.dark-mode .profile-form input:focus {
     background-color: #333;
     border-color: #00b0ff;
@@ -825,13 +914,15 @@ body.dark-mode .profile-form input:focus {
 
 /* === RESPONSIVE untuk Modal Pengaturan === */
 @media (max-width: 768px) {
-    .modal-content { 
-        width: 95%; 
+    .modal-content {
+        width: 95%;
     }
-    .modal-body { 
-        flex-direction: column; 
-        min-height: 250px; 
+
+    .modal-body {
+        flex-direction: column;
+        min-height: 250px;
     }
+
     .modal-sidebar {
         width: 100%;
         border-right: none;
@@ -839,26 +930,31 @@ body.dark-mode .profile-form input:focus {
         display: flex;
         overflow-x: auto;
     }
-    .modal-tab-link { 
-        border-left: none; 
-        border-bottom: 3px solid transparent; 
+
+    .modal-tab-link {
+        border-left: none;
+        border-bottom: 3px solid transparent;
     }
-    .modal-tab-link.active { 
-        border-left: none; 
-        border-bottom-color: #007bff; 
+
+    .modal-tab-link.active {
+        border-left: none;
+        border-bottom-color: #007bff;
     }
-    .theme-switcher { 
-        flex-direction: column; 
+
+    .theme-switcher {
+        flex-direction: column;
     }
-    .theme-btn:not(:last-child) { 
-        border-right: none; 
-        border-bottom: 1px solid #ccc; 
+
+    .theme-btn:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid #ccc;
     }
 
     /* Dark mode responsive */
     body.dark-mode .modal-sidebar {
         border-bottom-color: #333;
     }
+
     body.dark-mode .theme-btn:not(:last-child) {
         border-bottom-color: #444;
     }
@@ -871,18 +967,21 @@ body.dark-mode .profile-form input:focus {
 .setting-item {
     margin-bottom: 20px;
 }
+
 .setting-item label {
     font-weight: 600;
     color: #555;
     margin-bottom: 8px;
     display: block;
 }
+
 .theme-switcher {
     display: flex;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
 }
+
 .theme-btn {
     flex: 1;
     background: #fff;
@@ -892,27 +991,34 @@ body.dark-mode .profile-form input:focus {
     color: #555;
     transition: background-color 0.2s, color 0.2s;
 }
+
 .theme-btn:not(:last-child) {
     border-right: 1px solid #ccc;
 }
+
 .theme-btn.active {
     background-color: #00b0ff;
     color: white;
 }
+
 .profile-form {
     margin-top: 15px;
 }
+
 /* Menggunakan .profile-form .input-group agar tidak bentrok dengan .input-group global */
 .profile-form .input-group {
     margin-bottom: 15px;
-    text-align: left; /* Memastikan label rata kiri */
+    text-align: left;
+    /* Memastikan label rata kiri */
 }
+
 .profile-form .input-group label {
     font-size: 0.9rem;
     color: #666;
     display: block;
     margin-bottom: 5px;
 }
+
 .profile-form .input-group input {
     /* Pastikan input form ini sama dengan input auth */
     width: 100%;
@@ -920,8 +1026,10 @@ body.dark-mode .profile-form input:focus {
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 1rem;
-    box-sizing: border-box; /* Penting agar padding tidak merusak lebar */
+    box-sizing: border-box;
+    /* Penting agar padding tidak merusak lebar */
 }
+
 .profile-form .input-group input:focus {
     outline: none;
     border-color: #00b0ff;
@@ -933,53 +1041,128 @@ body.dark-mode .profile-form input:focus {
     padding: 10px;
     border-radius: 6px;
     margin-bottom: 15px;
-    display: none; /* Sembunyi by default */
+    display: none;
+    /* Sembunyi by default */
 }
+
 #profile-message.success {
     background-color: #d4edda;
     color: #155724;
 }
+
 #profile-message.error {
     background-color: #f8d7da;
     color: #721c24;
 }
 
-/* === DARK MODE untuk Konten Modal === *
-body.dark-mode .setting-item label {
-    color: #b0b0b0;
-}
-body.dark-mode .theme-switcher {
-    border-color: #444;
-}
-body.dark-mode .theme-btn {
-    background-color: #2a2a2a;
-    color: #b0b0b0;
-}
-body.dark-mode .theme-btn:not(:last-child) {
-    border-right-color: #444;
-}
-body.dark-mode .theme-btn.active {
-    background-color: #00b0ff;
-    color: white;
-}
-body.dark-mode .profile-form label {
-    color: #b0b0b0;
-}
-body.dark-mode .profile-form input {
-    background-color: #2a2a2a;
-    border-color: #444;
-    color: #e0e0e0;
-}
-body.dark-mode .profile-form input:focus {
-    background-color: #333;
-    border-color: #00b0ff;
-}
-body.dark-mode #profile-message.success {
-    background-color: #1a3a24;
-    color: #a6d9b3;
-}
-body.dark-mode #profile-message.error {
-    background-color: #4a2125;
-    color: #f1b0b7;
+/* === Riwayat: item + tombol opsi === */
+.history-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 8px;
 }
 
+.history-item:hover {
+    background: rgba(0, 0, 0, .04);
+}
+
+body.dark-mode .history-item:hover {
+    background: rgba(255, 255, 255, .06);
+}
+
+.history-item-text {
+    font-size: .95rem;
+    line-height: 1.3;
+    color: inherit;
+}
+
+/* Tombol titik 3 */
+.history-options-btn {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    /* gray-500 */
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.history-options-btn:hover {
+    background: rgba(0, 0, 0, .06);
+    color: #374151;
+}
+
+body.dark-mode .history-options-btn {
+    color: #9ca3af;
+}
+
+body.dark-mode .history-options-btn:hover {
+    background: rgba(255, 255, 255, .08);
+    color: #e5e7eb;
+}
+
+/* Dropdown menu */
+.history-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 6px;
+    min-width: 140px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .12);
+    display: none;
+    /* hidden by default */
+    z-index: 4000;
+    /* above sidebar content */
+}
+
+.history-dropdown.show {
+    display: block;
+}
+
+.history-dropdown .history-delete-link {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #dc2626;
+    /* red-600 */
+    font-size: .95rem;
+}
+
+.history-dropdown .history-delete-link i {
+    margin-right: 8px;
+}
+
+.history-dropdown .history-delete-link:hover {
+    background: #fee2e2;
+    /* red-100 */
+}
+
+/* Dark mode menu */
+body.dark-mode .history-dropdown {
+    background: #1f2937;
+    /* gray-800 */
+    border-color: #374151;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
+}
+
+body.dark-mode .history-dropdown .history-delete-link {
+    color: #f87171;
+    /* red-400 */
+}
+
+body.dark-mode .history-dropdown .history-delete-link:hover {
+    background: #4b5563;
+    /* gray-600 */
+}
