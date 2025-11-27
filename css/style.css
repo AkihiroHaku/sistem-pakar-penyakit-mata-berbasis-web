@@ -22,6 +22,12 @@ a {
     text-decoration: none;
     /* hilangkan garis bawah */
 }
+.nama:hover {
+    color: #1e88e5;
+    /* warna teks saat hover */
+    text-decoration: underline;
+    /* garis bawah saat hover */
+}
 
 /* --- STYLE SIDEBAR MENU --- */
 .sidebar {
@@ -1055,114 +1061,309 @@ body.dark-mode .profile-form input:focus {
     color: #721c24;
 }
 
-/* === Riwayat: item + tombol opsi === */
+/* --- STYLE UNTUK RIWAYAT ANALISIS (DIPERBARUI) --- */
+
+/* Item Riwayat (Kontainer Utama) */
 .history-item {
-    position: relative;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    padding: 6px 8px;
+    position: relative; /* Penting untuk posisi dropdown */
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border: 1px solid #eee;
     border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 .history-item:hover {
-    background: rgba(0, 0, 0, .04);
+    background-color: #f8f9fa;
+    border-color: #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-body.dark-mode .history-item:hover {
-    background: rgba(255, 255, 255, .06);
-}
-
+/* Teks Riwayat */
 .history-item-text {
-    font-size: .95rem;
-    line-height: 1.3;
-    color: inherit;
+    font-size: 0.9rem;
+    color: #555;
+    flex-grow: 1; /* Mengisi ruang yang tersedia */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Tambahkan ... jika teks terlalu panjang */
+    margin-right: 10px;
 }
 
-/* Tombol titik 3 */
+/* Tombol Titik Tiga */
 .history-options-btn {
-    margin-left: auto;
-    display: inline-flex;
+    background: none;
+    border: none;
+    color: #adb5bd;
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
-    border: none;
-    background: transparent;
-    color: #6b7280;
-    /* gray-500 */
-    border-radius: 6px;
-    cursor: pointer;
 }
 
 .history-options-btn:hover {
-    background: rgba(0, 0, 0, .06);
-    color: #374151;
+    background-color: #e9ecef;
+    color: #333;
 }
 
-body.dark-mode .history-options-btn {
-    color: #9ca3af;
-}
-
-body.dark-mode .history-options-btn:hover {
-    background: rgba(255, 255, 255, .08);
-    color: #e5e7eb;
-}
-
-/* Dropdown menu */
+/* Menu Dropdown (Awalnya Tersembunyi) */
 .history-dropdown {
+    display: none; /* Sembunyi by default */
     position: absolute;
-    top: calc(100% + 6px);
-    right: 6px;
-    min-width: 140px;
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 6px;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, .12);
-    display: none;
-    /* hidden by default */
-    z-index: 4000;
-    /* above sidebar content */
+    top: 100%; /* Muncul tepat di bawah item */
+    right: 10px;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    z-index: 100; /* Pastikan di atas elemen lain */
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
 }
 
+/* Kelas untuk Menampilkan Dropdown (Di-toggle oleh JS) */
 .history-dropdown.show {
     display: block;
+    animation: fadeIn 0.2s ease-in-out;
 }
 
-.history-dropdown .history-delete-link {
-    display: block;
-    padding: 8px 10px;
-    border-radius: 8px;
+/* Item Link di Dalam Dropdown */
+.history-dropdown a.history-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
     text-decoration: none;
-    color: #dc2626;
-    /* red-600 */
-    font-size: .95rem;
+    font-size: 0.9rem;
+    color: #333;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f9f9f9;
 }
 
-.history-dropdown .history-delete-link i {
-    margin-right: 8px;
+.history-dropdown a.history-link:last-child {
+    border-bottom: none;
 }
 
-.history-dropdown .history-delete-link:hover {
-    background: #fee2e2;
-    /* red-100 */
+.history-dropdown a.history-link:hover {
+    background-color: #f8f9fa;
 }
 
-/* Dark mode menu */
+.history-dropdown a.history-link i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+}
+
+/* Warna Khusus untuk Ikon */
+.history-dropdown a.history-link.view i {
+    color: #007bff; /* Biru untuk lihat */
+}
+
+.history-dropdown a.history-link.delete {
+    color: #dc3545; /* Merah untuk teks hapus */
+}
+.history-dropdown a.history-link.delete:hover {
+    background-color: #fff5f5; /* Background merah muda saat hover hapus */
+}
+
+/* Animasi Sederhana */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dark Mode Support */
+body.dark-mode .history-item {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+body.dark-mode .history-item:hover {
+    background-color: #252525;
+}
+body.dark-mode .history-item-text {
+    color: #ccc;
+}
+body.dark-mode .history-options-btn {
+    color: #777;
+}
+body.dark-mode .history-options-btn:hover {
+    background-color: #333;
+    color: #fff;
+}
 body.dark-mode .history-dropdown {
-    background: #1f2937;
-    /* gray-800 */
-    border-color: #374151;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+body.dark-mode .history-dropdown a.history-link {
+    color: #e0e0e0;
+    border-bottom-color: #333;
+}
+body.dark-mode .history-dropdown a.history-link:hover {
+    background-color: #333;
 }
 
-body.dark-mode .history-dropdown .history-delete-link {
-    color: #f87171;
-    /* red-400 */
-}
+/* =============================================== */
+/* === CSS KHUSUS UNTUK PRINT (CETAK / PDF) === */
+/* =============================================== */
+@media print {
 
-body.dark-mode .history-dropdown .history-delete-link:hover {
-    background: #4b5563;
-    /* gray-600 */
+        @page {
+        margin: 0; /* Margin 0 menghilangkan teks bawaan browser */
+        size: auto;
+    }
+    /* 1. Sembunyikan elemen-elemen "Situs Web" */
+    .sidebar, 
+    .main-header, 
+    .btn, 
+    .d-grid, 
+    .sidebar-overlay,
+    .menu-button,
+    footer,
+    .print-header-btn, /* Sembunyikan tombol cetak itu sendiri */
+    .search-container,
+    .button-container {
+        display: none !important;
+    }
+
+    /* 2. Reset Layout Halaman untuk Kertas */
+        body {
+        margin: 2cm !important; /* Memberi jarak aman 2cm dari tepi kertas */
+        padding: 0 !important;
+    }
+
+    
+    .main-content {
+        background-color: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        font-size: 12pt !important; /* Ukuran font standar dokumen */
+        color: black !important;
+    }
+
+    #main-content-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 3. Format Kartu Hasil */
+    .card.diagnosis-card {
+        box-shadow: none !important;
+        border: none !important; /* Hilangkan border kartu */
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .card-body {
+        padding: 0 !important;
+    }
+
+    .card-header {
+        display: none !important; /* Sembunyikan header kartu "Hasil Diagnosis" */
+    }
+
+    /* 4. Tampilkan Info User (Hanya muncul saat print) */
+    .print-user-info {
+        display: block !important;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+    }
+    
+    /* Judul Dokumen (Buat agar terlihat resmi) */
+    .print-user-info h2 {
+        margin: 0 0 5px 0;
+        font-size: 18pt;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .print-user-info p {
+        margin: 2px 0;
+        font-size: 11pt;
+    }
+
+    /* 5. Paksa Accordion Terbuka dan Sederhana */
+    .accordion-collapse {
+        display: block !important;
+        height: auto !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        overflow: visible !important;
+    }
+
+    .accordion-button {
+        display: none !important; /* Sembunyikan tombol accordion */
+    }
+    
+    .accordion-body {
+        padding: 0 !important;
+        margin-bottom: 20px !important;
+    }
+
+    .accordion-item {
+        border: none !important;
+        background: none !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid; /* Jangan potong item di tengah halaman */
+    }
+
+    /* 6. Judul Bagian (Pengganti Accordion Button) */
+    .accordion-header::after {
+        /* Membuat judul palsu agar terlihat seperti dokumen */
+        display: block;
+        content: attr(data-print-title); /* Mengambil teks judul dari atribut HTML */
+        font-weight: bold;
+        font-size: 14pt;
+        margin-bottom: 10px;
+        text-decoration: underline;
+        margin-top: 20px;
+    }
+
+    /* 7. Styling Daftar Gejala */
+    .list-group-item {
+        border: none !important;
+        padding: 5px 0 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+    }
+
+    .symptom-name {
+        border-right: none !important; /* Hilangkan garis pemisah */
+    }
+    
+    .confidence-badge {
+        /* Ubah badge jadi teks biasa agar hemat tinta */
+        background: none !important;
+        color: black !important;
+        border: none !important;
+        font-weight: bold !important;
+        text-align: right !important;
+    }
+
+    /* 8. Judul Penyakit Utama */
+    .result-main {
+        text-align: left !important;
+        margin-bottom: 20px !important;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+    }
+    
+    .disease-name {
+        font-size: 20pt !important;
+        color: black !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .match-percentage {
+        font-size: 12pt !important;
+        color: #333 !important;
+    }
 }

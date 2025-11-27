@@ -78,10 +78,18 @@ try {
                             <span class="history-item-text">
                                 <?= $index + 1 ?>. <?= htmlspecialchars($riwayat['penyakit']) ?> (<?= number_format($riwayat['persentase_hasil'], 0) ?>%)
                             </span>
+                            
+                            <!-- Tombol Titik Tiga -->
                             <button class="history-options-btn"><i class="fas fa-ellipsis-v"></i></button>
-                            <!-- Dropdown Hapus untuk item ini -->
+                            
+                            <!-- Dropdown Opsi Riwayat -->
                             <div class="history-dropdown">
-                                <a href="hapus_riwayat_item.php?id=<?= $riwayat['idkonsultasi'] ?>" class="history-delete-link">
+                                <!-- Opsi Lihat Detail (Arahkan ke file baru lihat_riwayat.php) -->
+                                <a href="view_analisis.php?id=<?= $riwayat['idkonsultasi'] ?>" class="history-link view">
+                                    <i class="fas fa-eye"></i> Lihat Detail
+                                </a>
+                                <!-- Opsi Hapus -->
+                                <a href="hapus_riwayat_item.php?id=<?= $riwayat['idkonsultasi'] ?>" class="history-link delete history-delete-link">
                                     <i class="fas fa-trash"></i> Hapus
                                 </a>
                             </div>
@@ -245,8 +253,9 @@ try {
                     <div id="about" class="modal-tab-content">
                         <h4>Tentang Aplikasi</h4>
                         <p>Website ini dibuat oleh kelompok 4 😎😎
-                            <br> 1. M. Nabilul Arsyad = 101230012 <br>
-                            2. <a href="https://github.com/AkihiroHaku "target="_blank" title="github" rel="noopener noreferrer">
+                            <br>
+                            1. M. Nabilul Arsyad = 101230012 <br>
+                            2. <a class="nama" href="https://github.com/AkihiroHaku "target="_blank" title="github" rel="noopener noreferrer">
                                 M Khoirul anwar = 101230107
                                 </a><br>
                             3. Siti Nurlela = 101230065 <br>

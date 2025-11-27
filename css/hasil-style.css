@@ -147,3 +147,50 @@ footer {
     padding: 20px 0;
     margin-top: 40px;
 }
+
+/* ... (kode CSS sebelumnya) ... */
+
+/* Styling untuk Daftar Gejala di Hasil Analisis */
+.symptoms-list-result .list-group-item {
+    border: none; /* Hapus border default list group item jika diinginkan */
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    background-color: #fff; /* Latar belakang putih */
+    border-radius: 8px; /* Sudut membulat */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Bayangan halus */
+}
+
+.symptom-name {
+    flex-grow: 1; /* Mengisi ruang yang tersedia */
+    padding-right: 15px; /* Ruang di sebelah kanan nama gejala */
+    margin-right: 15px; /* Jarak dengan garis pemisah */
+    border-right: 1px solid #e0e0e0; /* Garis pemisah */
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.symptom-confidence {
+    flex-shrink: 0; /* Mencegah gelembung mengecil */
+}
+
+.confidence-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 12px; /* Padding di dalam gelembung */
+    min-width: 80px; /* Lebar minimum agar seragam */
+    text-align: center; /* Teks rata tengah */
+    display: inline-block; /* Agar min-width berfungsi */
+}
+
+/* Dark Mode Support (Jika Anda menggunakannya) */
+body.dark-mode .symptoms-list-result .list-group-item {
+    background-color: #2a2a2a;
+    box-shadow: none;
+    border: 1px solid #444;
+}
+
+body.dark-mode .symptom-name {
+    color: #e0e0e0;
+    border-right-color: #444;
+}
+

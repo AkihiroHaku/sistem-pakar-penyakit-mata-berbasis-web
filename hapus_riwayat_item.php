@@ -56,7 +56,7 @@ try {
     $conn->commit();
 
     // Arahkan kembali ke halaman utama
-    header("Location: index.php?success=Riwayat berhasil dihapus.");
+    header("Location: index.php");
     exit();
 
 } catch (PDOException $e) {
