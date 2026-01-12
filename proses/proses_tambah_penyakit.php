@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // 1. Proteksi Admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 // 2. Validasi input dari formulir
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['kode_penyakit']) || empty($_POST['nmpenyakit']) || empty($_POST['keterangan']) || empty($_POST['solusi'])) {
-        header("Location: admin_penyakit.php?error=Semua field wajib diisi.");
+        header("Location: ../admin/admin_penyakit.php?error=Semua field wajib diisi.");
         exit();
     }
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_check->execute([$kode_penyakit]);
 
         if ($stmt_check->fetch()) {
-            header("Location: admin_penyakit.php?error=Kode penyakit '" . htmlspecialchars($kode_penyakit) . "' sudah digunakan.");
+            header("Location: ../admin/admin_penyakit.php?error=Kode penyakit '" . htmlspecialchars($kode_penyakit) . "' sudah digunakan.");
             exit();
         }
 
@@ -36,15 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_insert = $conn->prepare($sql_insert);
         $stmt_insert->execute([$kode_penyakit, $nmpenyakit, $keterangan, $solusi]);
 
-        header("Location: admin_penyakit.php?success=Penyakit '" . htmlspecialchars($nmpenyakit) . "' berhasil ditambahkan.");
+        header("Location: ../admin/admin_penyakit.php?success=Penyakit '" . htmlspecialchars($nmpenyakit) . "' berhasil ditambahkan.");
         exit();
 
     } catch (PDOException $e) {
-        header("Location: admin_penyakit.php?error=Error database: " . $e->getMessage());
+        header("Location: ../admin/admin_penyakit.php?error=Error database: " . $e->getMessage());
         exit();
     }
 } else {
-    header("Location: admin_penyakit.php");
+    header("Location: ../admin/admin_penyakit.php");
     exit();
 }
 ?>

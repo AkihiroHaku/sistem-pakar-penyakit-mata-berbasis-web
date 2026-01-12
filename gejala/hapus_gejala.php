@@ -1,16 +1,16 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // 1. Proteksi Admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
-    header("Location: index.php?error=Akses ditolak");
+    header("Location: /pakar/index.php?error=Akses ditolak");
     exit();
 }
 
 // 2. Validasi ID Gejala dari URL
 if (!isset($_GET['id']) || !filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
-    header("Location: admin_gejala.php?error=ID gejala tidak valid.");
+    header("Location: ../admin/admin_gejala.php?error=ID gejala tidak valid.");
     exit();
 }
 
@@ -35,7 +35,7 @@ try {
     $conn->commit();
 
     // 6. Kembalikan ke halaman admin dengan pesan sukses
-    header("Location: admin_gejala.php?success=Gejala (ID: $id_gejala_hapus) dan semua aturan terkait berhasil dihapus.");
+    header("Location: ../admin/admin_gejala.php?success=Gejala (ID: $id_gejala_hapus) dan semua aturan terkait berhasil dihapus.");
     exit();
 
 } catch (PDOException $e) {

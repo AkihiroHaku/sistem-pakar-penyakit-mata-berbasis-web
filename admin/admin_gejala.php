@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 }
 
 // === JIKA LOLOS, LANJUTKAN MEMUAT HALAMAN ===
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // Ambil semua gejala dari database untuk ditampilkan
 try {
@@ -34,7 +34,7 @@ try {
     <!-- Font Awesome (untuk ikon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     <!-- File CSS Admin KHUSUS (Pastikan path ini benar) -->
-    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="../css/admin-style.css">
 </head>
 <body>
 
@@ -64,12 +64,12 @@ try {
             </li>
             <li class="nav-item-divider"></li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php" target="_blank">
+                <a class="nav-link" href="/pakar/index.php" target="_blank">
                     <i class="fas fa-globe"></i> Lihat Situs Publik
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="logout.php">
+                <a class="nav-link" href="../auth/logout.php">
                     <i class="fas fa-sign-out-alt"></i> Keluar
                 </a>
             </li>
@@ -95,7 +95,7 @@ try {
                     <i class="fas fa-plus-circle"></i> Tambah Gejala Publik Baru
                 </div>
                 <div class="card-body">
-                    <form action="proses_tambah_gejala.php" method="POST">
+                    <form action="../proses/proses_tambah_gejala.php" method="POST">
                         <div class="mb-3">
                             <label for="nmgejala" class="form-label">Nama Gejala</label>
                             <input type="text" class="form-control" id="nmgejala" name="nmgejala" placeholder="Contoh: Mata bengkak di pagi hari" required>
@@ -113,7 +113,7 @@ try {
                     <i class="fas fa-edit"></i> Edit Gejala
                 </div>
                 <div class="card-body">
-                    <form action="proses_edit_gejala.php" method="POST">
+                    <form action="../proses/proses_edit_gejala.php" method="POST">
                         <input type="hidden" id="idgejala_edit" name="idgejala_edit">
                         <div class="mb-3">
                             <label for="nmgejala_edit" class="form-label">Nama Gejala</label>
@@ -173,7 +173,7 @@ try {
                                                 data-nama="<?= htmlspecialchars($gejala['nmgejala']) ?>">
                                                 <i class="fas fa-edit"></i> Edit
                                             </button>
-                                            <a href="hapus_gejala.php?id=<?= $gejala['idgejala'] ?>" class="btn btn-danger btn-sm btn-delete-gejala">
+                                                <a href="../gejala/hapus_gejala.php?id=<?= $gejala['idgejala'] ?>" class="btn btn-danger btn-sm btn-delete-gejala">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </a>
                                         </td>
@@ -191,6 +191,6 @@ try {
 
     <!-- Memanggil JS Bootstrap dan JS Kustom Admin (Pastikan path ini benar) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/admin-script.js"></script>
+    <script src="../js/admin-script.js"></script>
 </body>
 </html>

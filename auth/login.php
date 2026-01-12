@@ -2,7 +2,7 @@
 session_start();
 
 // Jika pengguna sudah login, arahkan ke halaman utama
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])) { 
     header("Location: index.php");
     exit();
 }
@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Pakar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <link rel="stylesheet" href="css/auth-style.css">
+    <link rel="stylesheet" href="../css/auth-style.css">
 </head>
 
 <body>
@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id'])) {
             <?php endif; ?>
 
             <!-- Formulir diperbaiki -->
-            <form action="proses_login.php" method="POST">
+            <form action="/pakar/proses/proses_login.php" method="POST">
                 <div class="input-group">
                     <label for="username">Username</label>
                     <!-- Menambahkan atribut 'name' -->
@@ -49,11 +49,11 @@ if (isset($_SESSION['user_id'])) {
                 <button type="submit" class="btn-gradient">Login</button>
             </form>
             <div class="auth-switch">
-                Belum punya akun? <a href="signup.php">Daftar disini</a>
+                Belum punya akun? <a href="/pakar/auth/signup.php">Daftar disini</a>
             </div>
         </div>
     </div>
     <!-- Memanggil file JavaScript eksternal untuk validasi -->
-    <script src="js/confirm.js"></script>
+    <script src="../js/confirm.js"></script>
 </body>
 </html>

@@ -64,7 +64,7 @@ try {
             <img src="assets/images/logomata.jpg" alt="Logo" class="logo-image">
         </div>
         <a href="index.php" class="sidebar-link active"><i class="fas fa-plus-circle"></i> NEW ANALISIS</a>
-
+        <a href="penyakit/pustaka_penyakit.php" class="sidebar-link active"><i class="fas fa-book-medical"></i> ENSIKLOPEDIA</a>    
         <!-- Riwayat Analisis -->
         <div class="history-section">
             <span class="history-title">Riwayat Analisis</span>
@@ -119,16 +119,16 @@ try {
                     <a href="#" id="open-settings-modal"><i class="fas fa-cog"></i> Pengaturan</a>
                     <?php
                     if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
-                        echo '<a href="admin_gejala.php"><i class="fas fa-tasks"></i> Kelola Gejala</a>';
-                        echo '<a href="admin_penyakit.php"><i class="fas fa-virus"></i> Kelola Penyakit</a>';
-                        echo '<a href="admin_aturan.php"><i class="fas fa-network-wired"></i> Kelola Aturan</a>';
-                        echo '<a href="admin_keyakinan.php"><i class="fas fa-percent"></i> Kelola Keyakinan</a>';
+                        echo '<a href="/pakar/admin/admin_gejala.php"><i class="fas fa-tasks"></i> Kelola Gejala</a>';
+                        echo '<a href="/pakar/admin/admin_penyakit.php"><i class="fas fa-virus"></i> Kelola Penyakit</a>';
+                        echo '<a href="/pakar/admin/admin_aturan.php"><i class="fas fa-network-wired"></i> Kelola Aturan</a>';
+                        echo '<a href="/pakar/admin/admin_keyakinan.php"><i class="fas fa-percent"></i> Kelola Keyakinan</a>';
                     }
                     ?>
                     <a href="#" id="open-logout-modal"><i class="fas fa-sign-out-alt"></i> Keluar</a>
                 </div>
             <?php else: ?>
-                <a href="login.php" class="sidebar-link auth-link"><i class="fas fa-sign-in-alt"></i> Masuk / Daftar</a>
+                <a href="/pakar/auth/login.php" class="sidebar-link auth-link"><i class="fas fa-sign-in-alt"></i> Masuk / Daftar</a>
             <?php endif; ?>
         </div>
     </div>
@@ -152,7 +152,7 @@ try {
                     <i class="fas fa-search"></i>
                     <input type="text" id="gejala-search" placeholder="Cari nama gejala...">
                 </div>
-                <form action="proses_analisis.php" method="POST">
+                <form action="proses/proses_analisis.php" method="POST">
                     <div class="symptoms-list">
                         <?php if (count($daftar_gejala) > 0 && count($daftar_keyakinan) > 0): ?>
                             <?php foreach ($daftar_gejala as $gejala): ?>
@@ -227,7 +227,7 @@ try {
                         </button>
 
                         <!-- Form Ubah Password (awal: tersembunyi) -->
-                        <form id="change-password-form" class="profile-form" method="post" action="change_password.php" hidden>
+                        <form id="change-password-form" class="profile-form" method="post" action="/pakar/auth/ubah_password.php" hidden>
                             <!-- flag agar backend tahu memang ingin ubah password -->
                             <input type="hidden" name="change_password" id="change_password" value="0">
 
@@ -277,7 +277,7 @@ try {
             <div class="modal-body-centered">
                 <p>Apakah Anda yakin ingin keluar?</p>
                 <div class="logout-actions">
-                    <a href="logout.php" class="btn-danger">Ya, Keluar</a>
+                    <a href="/pakar/auth/logout.php" class="btn-danger">Ya, Keluar</a>
                     <button id="logout-cancel-btn" class="btn-secondary">Batal</button>
                 </div>
             </div>

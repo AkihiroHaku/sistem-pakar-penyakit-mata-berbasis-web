@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // 1. Proteksi Admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
@@ -59,7 +59,7 @@ try {
     <title>Admin: Edit Aturan #<?= $id_aturan_edit ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="../css/admin-style.css">
     <style>
         .gejala-select-container { height: 300px; overflow-y: auto; border: 1px solid #ccc; border-radius: 6px; padding: 10px; }
         .gejala-select-container .form-check { margin-bottom: 10px; }
@@ -76,8 +76,8 @@ try {
             <li class="nav-item"><a class="nav-link active" href="admin_aturan.php"><i class="fas fa-network-wired"></i> Kelola Aturan</a></li>
             <li class="nav-item"><a class="nav-link" href="admin_keyakinan.php"><i class="fas fa-percent"></i> Kelola Keyakinan</a></li>
             <li class="nav-item-divider"></li>
-            <li class="nav-item"><a class="nav-link" href="index.php" target="_blank"><i class="fas fa-globe"></i> Lihat Situs Publik</a></li>
-            <li class="nav-item"><a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
+            <li class="nav-item"><a class="nav-link" href="/pakar/index.php" target="_blank"><i class="fas fa-globe"></i> Lihat Situs Publik</a></li>
+            <li class="nav-item"><a class="nav-link" href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
         </ul>
     </div>
 
@@ -92,7 +92,7 @@ try {
                     <i class="fas fa-edit"></i> Mengubah Aturan
                 </div>
                 <div class="card-body">
-                    <form action="proses_edit_aturan.php" method="POST">
+                    <form action="../proses/proses_edit_aturan.php" method="POST">
                         <!-- Kirim ID Aturan yang sedang diedit -->
                         <input type="hidden" name="idaturan" value="<?= $id_aturan_edit ?>">
                         
@@ -137,7 +137,7 @@ try {
                         <button type="submit" class="btn btn-warning mt-3">
                             <i class="fas fa-save"></i> Update Aturan
                         </button>
-                        <a href="admin_aturan.php" class="btn btn-secondary mt-3">Batal</a>
+                        <a href="/pakar/admin/admin_aturan.php" class="btn btn-secondary mt-3">Batal</a>
                     </form>
                 </div>
             </div>

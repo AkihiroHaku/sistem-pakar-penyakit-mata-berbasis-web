@@ -4,13 +4,13 @@ require_once 'includes/db_connect.php';
 
 // 1. Cek Login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: /pakar/auth/login.php");
     exit();
 }
 
 // 2. Validasi ID dari URL
 if (!isset($_GET['id']) || !filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
-    header("Location: index.php?error=ID tidak valid");
+    header("Location: /pakar/index.php?error=ID tidak valid");
     exit();
 }
 $id_konsultasi = $_GET['id'];
@@ -28,7 +28,7 @@ try {
     $data_konsultasi = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$data_konsultasi) {
-        header("Location: index.php?error=Riwayat tidak ditemukan.");
+        header("Location: /pakar/index.php?error=Riwayat tidak ditemukan.");
         exit();
     }
 
@@ -136,7 +136,7 @@ try {
                 </div>
 
                 <div class="d-grid gap-2 mt-4">
-                    <a href="index.php" class="btn btn-primary btn-lg">Kembali ke Menu Utama</a>
+                    <a href="/pakar/index.php" class="btn btn-primary btn-lg">Kembali ke Menu Utama</a>
                 </div>
 
             </div>

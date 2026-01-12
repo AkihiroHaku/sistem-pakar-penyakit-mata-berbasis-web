@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // 1. Proteksi Admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 // 2. Validasi input dari formulir
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['idaturan']) || empty($_POST['idpenyakit']) || empty($_POST['idgejala']) || !isset($_POST['cfpakar'])) {
-        header("Location: admin_aturan.php?error=Data tidak lengkap.");
+        header("Location: ../admin/admin_aturan.php?error=Data tidak lengkap.");
         exit();
     }
 
@@ -21,11 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cfpakar = (float) $_POST['cfpakar'];
 
     if (!is_array($gejala_terpilih) || count($gejala_terpilih) == 0) {
-        header("Location: admin_edit_aturan.php?id=$id_aturan&error=Anda harus memilih minimal satu gejala.");
+        header("Location: ../admin/admin_edit_aturan.php?id=$id_aturan&error=Anda harus memilih minimal satu gejala.");
         exit();
     }
     if ($cfpakar <= 0 || $cfpakar > 1) {
-        header("Location: admin_edit_aturan.php?id=$id_aturan&error=Nilai CF Pakar harus antara 0.01 dan 1.0.");
+        header("Location: ../admin/admin_edit_aturan.php?id=$id_aturan&error=Nilai CF Pakar harus antara 0.01 dan 1.0.");
         exit();
     }
 
@@ -54,17 +54,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // 7. Jika semua berhasil, konfirmasi transaksi
         $conn->commit();
 
-        header("Location: admin_aturan.php?success=Aturan (ID: $id_aturan) berhasil diperbarui.");
+        header("Location: ../admin/admin_aturan.php?success=Aturan (ID: $id_aturan) berhasil diperbarui.");
         exit();
 
     } catch (PDOException $e) {
         // 8. Jika ada error, batalkan semua perubahan
         $conn->rollBack();
-        header("Location: admin_edit_aturan.php?id=$id_aturan&error=Error database: " . $e->getMessage());
+        header("Location: ../admin/admin_edit_aturan.php?id=$id_aturan&error=Error database: " . $e->getMessage());
         exit();
     }
 } else {
-    header("Location: admin_aturan.php");
+    header("Location: ../admin/admin_aturan.php");
     exit();
 }
 ?>

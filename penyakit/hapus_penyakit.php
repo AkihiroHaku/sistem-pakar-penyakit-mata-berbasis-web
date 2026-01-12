@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // 1. Proteksi Admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 
 // 2. Validasi ID Penyakit
 if (!isset($_GET['id']) || !filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
-    header("Location: admin_penyakit.php?error=ID penyakit tidak valid.");
+    header("Location: ../admin/admin_penyakit.php?error=ID penyakit tidak valid.");
     exit();
 }
 
@@ -53,12 +53,12 @@ try {
     // 6. Konfirmasi transaksi
     $conn->commit();
 
-    header("Location: admin_penyakit.php?success=Penyakit (ID: $id_penyakit_hapus) dan semua data terkait berhasil dihapus.");
+    header("Location: ../admin/admin_penyakit.php?success=Penyakit (ID: $id_penyakit_hapus) dan semua data terkait berhasil dihapus.");
     exit();
 
 } catch (PDOException $e) {
     $conn->rollBack();
-    header("Location: admin_penyakit.php?error=Error database: " . $e->getMessage());
+    header("Location: ../admin/admin_penyakit.php?error=Error database: " . $e->getMessage());
     exit();
 }
 ?>

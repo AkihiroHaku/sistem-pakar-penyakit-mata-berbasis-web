@@ -290,7 +290,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 e.preventDefault();
                 msg.innerHTML = '<p style="color:#e74c3c;">Konfirmasi password tidak cocok.</p>';
             }
-            changePwdForm.hidden = ion;
+            changePwdForm.hidden = true;
+            msg.innerHTML = '<p>Memproses perubahan password...</p>';
         });
     })();
 
@@ -378,3 +379,60 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })();
 }); // <-- AKHIR DARI DOMContentLoaded
+
+// ===================================
+    // === 4. MODAL ENSIKLOPEDIA (BARU) ===
+    // ===================================
+    const diseaseModal = document.getElementById('disease-modal');
+    const diseaseModalClose = document.getElementById('disease-modal-close-btn');
+    const modalTitleSpan = document.querySelector('#modal-disease-title span'); 
+    const modalDesc = document.getElementById('modal-disease-desc');
+    const modalSolusi = document.getElementById('modal-disease-solusi');
+    
+    // Fungsi Global agar bisa dipanggil dari onclick="" di HTML
+    window.openDiseaseModal = function(id) {
+        const dataDiv = document.getElementById('data-' + id);
+        if (dataDiv && diseaseModal) {
+            const nama = dataDiv.querySelector('.data-nama').textContent;
+            const ket = dataDiv.querySelector('.data-ket').textContent;
+            const solusi = dataDiv.querySelector('.data-solusi').textContent;
+
+            if(modalTitleSpan) modalTitleSpan.textContent = nama;
+            if(modalDesc) modalDesc.textContent = ket;
+            // Ubah baris baru (\n) menjadi <br> agar rapi
+            if(modalSolusi) modalSolusi.innerHTML = solusi.replace(/\n/g, '<br>');
+
+            diseaseModal.style.display = 'flex';
+            setTimeout(() => {
+                diseaseModal.style.opacity = '1';
+                diseaseModal.querySelector('.modal-content').style.transform = 'scale(1)';
+            }, 10);
+        }
+    };
+
+    if (diseaseModalClose && diseaseModal) {
+        function closeDiseaseModal() {
+            diseaseModal.style.opacity = '0';
+            diseaseModal.querySelector('.modal-content').style.transform = 'scale(0.95)';
+            setTimeout(() => { diseaseModal.style.display = 'none'; }, 300);
+        }
+        diseaseModalClose.addEventListener('click', closeDiseaseModal);
+        diseaseModal.addEventListener('click', (e) => { if (e.target === diseaseModal) closeDiseaseModal(); });
+    }
+
+    // Pencarian Penyakit (Ensiklopedia)
+    const searchInputPenyakit = document.getElementById('search-penyakit');
+    const diseaseCards = document.querySelectorAll('.disease-card');
+    if (searchInputPenyakit && diseaseCards) {
+        searchInputPenyakit.addEventListener('keyup', function() {
+            const term = this.value.toLowerCase();
+            diseaseCards.forEach(card => {
+                const title = card.querySelector('.disease-title').textContent.toLowerCase();
+                if (title.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+}

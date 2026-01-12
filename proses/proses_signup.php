@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // 1. Validasi Input Dasar
 if (!isset($_POST['username'], $_POST['password'], $_POST['confirm_password'])) {
     // Mengarahkan kembali dengan pesan error jika ada field yang tidak dikirim
-    header("Location: signup.php?error=Semua field harus diisi");
+    header("Location: /pakar/auth/signup.php?error=Semua field harus diisi");
     exit();
 }
 
@@ -16,17 +16,17 @@ $confirm_password = $_POST['confirm_password'];
 
 // 3. Validasi Lanjutan (email dihapus)
 if (empty($username) || empty($password) || empty($confirm_password)) {
-    header("Location: signup.php?error=Semua field harus diisi");
+    header("Location: /pakar/auth/signup.php?error=Semua field harus diisi");
     exit();
 }
 
 if ($password !== $confirm_password) {
-    header("Location: signup.php?error=Password tidak cocok");
+    header("Location: /pakar/auth/signup.php?error=Password tidak cocok");
     exit();
 }
 
 if (strlen($password) < 6) {
-    header("Location: signup.php?error=Password minimal 6 karakter");
+    header("Location: /pakar/auth/signup.php?error=Password minimal 6 karakter");
     exit();
 }
 
@@ -37,7 +37,7 @@ try {
     $stmt_check->execute([$username]);
     if ($stmt_check->fetch()) {
         // Jika username ditemukan, kirim pesan error
-        header("Location: signup.php?error=Username sudah terdaftar");
+        header("Location: /pakar/auth/signup.php?error=Username sudah terdaftar");
         exit();
     }
 } catch (PDOException $e) {
@@ -55,7 +55,7 @@ try {
     $stmt_insert->execute([$username, $password_hash]);
 
     // 7. Arahkan ke halaman login dengan pesan sukses
-    header("Location: login.php?success=Pendaftaran berhasil! Silakan login.");
+    header("Location: /pakar/auth/login.php?success=Pendaftaran berhasil! Silakan login.");
     exit();
 
 } catch (PDOException $e) {
@@ -63,4 +63,3 @@ try {
     die("Error saat mendaftarkan pengguna: " . $e->getMessage());
 }
 ?>
-

@@ -1,6 +1,6 @@
 <?php
 session_start(); // Mulai session di paling atas
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Validasi sederhana
     if (empty($username) || empty($password)) {
-        header("Location: login.php?error=Username dan password harus diisi");
+        header("Location: /pakar/auth/login.php?error=Username dan password harus diisi");
         exit();
     }
 
@@ -31,18 +31,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['role'] = $user['role']; // <-- PERUBAHAN PENTING
             
             // 4. Arahkan ke halaman utama
-            header("Location: index.php");
+            header("Location: /pakar/index.php");
             exit();
         } else {
             // Jika username atau password salah
-            header("Location: login.php?error=Username atau password salah");
+            header("Location: /pakar/auth/login.php?error=Username atau password salah");
             exit();
         }
     } catch (PDOException $e) {
         die("Error login: " . $e->getMessage());
     }
 } else {
-    header("Location: login.php");
+    header("Location: /pakar/auth/login.php");
     exit();
 }
 ?>

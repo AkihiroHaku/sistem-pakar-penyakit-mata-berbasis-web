@@ -1,0 +1,3 @@
+- [x] Fix paths in proses/proses_tambah_gejala.php: Change all "admin_gejala.php" to "../admin/admin_gejala.php"
+- [x] Fix paths in proses/proses_edit_gejala.php: Change incorrect "admin_gejala.php" to "../admin/admin_gejala.php" (success one is already correct)
+- [x] Fix paths in gejala/hapus_gejala.php: Change "admin_gejala.php" to "../admin/admin_gejala.php"

@@ -12,7 +12,7 @@ require_once 'includes/db_connect.php';
 
 // 1. Proteksi: Pastikan pengguna login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php?error=Akses ditolak");
+    header("Location: auth/login.php?error=Akses ditolak");
     exit();
 }
 

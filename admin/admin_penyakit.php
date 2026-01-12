@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // 1. Proteksi Admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
@@ -27,7 +27,7 @@ try {
     <title>Admin: Kelola Penyakit</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="../css/admin-style.css">
 </head>
 <body>
 
@@ -57,12 +57,12 @@ try {
             </li>
             <li class="nav-item-divider"></li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php" target="_blank">
+                <a class="nav-link" href="/pakar/index.php" target="_blank">
                     <i class="fas fa-globe"></i> Lihat Situs Publik
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="logout.php">
+                <a class="nav-link" href="../auth/logout.php">
                     <i class="fas fa-sign-out-alt"></i> Keluar
                 </a>
             </li>
@@ -88,7 +88,7 @@ try {
                     <i class="fas fa-plus-circle"></i> Tambah Penyakit Baru
                 </div>
                 <div class="card-body">
-                    <form action="proses_tambah_penyakit.php" method="POST">
+                    <form action="../proses/proses_tambah_penyakit.php" method="POST">
                         <div class="row g-3">
                             <div class="col-md-2">
                                 <label for="kode_penyakit" class="form-label">Kode Penyakit</label>
@@ -120,7 +120,7 @@ try {
                     <i class="fas fa-edit"></i> Edit Penyakit
                 </div>
                 <div class="card-body">
-                    <form action="proses_edit_penyakit.php" method="POST">
+                    <form action="../proses/proses_edit_penyakit.php" method="POST">
                         <!-- ID Penyakit yang sedang di-edit akan disimpan di sini -->
                         <input type="hidden" id="id_penyakit_edit" name="id_penyakit_edit">
                         
@@ -190,7 +190,7 @@ try {
                                                 data-solusi="<?= htmlspecialchars($penyakit['solusi']) ?>">
                                                 <i class="fas fa-edit"></i> Edit
                                             </button>
-                                            <a href="hapus_penyakit.php?id=<?= $penyakit['id'] ?>" class="btn btn-danger btn-sm btn-delete-penyakit">
+                                            <a href="../penyakit/hapus_penyakit.php?id=<?= $penyakit['id'] ?>" class="btn btn-danger btn-sm btn-delete-penyakit">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </a>
                                         </td>
@@ -207,6 +207,6 @@ try {
     </div> <!-- .admin-content -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/admin-script.js"></script>
+    <script src="../js/admin-script.js"></script>
 </body>
 </html>

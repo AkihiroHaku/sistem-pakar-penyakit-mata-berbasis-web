@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // Atur header untuk merespons sebagai JSON
 header('Content-Type: application/json');

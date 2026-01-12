@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
 
 // 2. Validasi ID Aturan
 if (!isset($_GET['id']) || !filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
-    header("Location: admin_aturan.php?error=ID aturan tidak valid.");
+    header("Location: admin/admin_aturan.php?error=ID aturan tidak valid.");
     exit();
 }
 
@@ -33,12 +33,12 @@ try {
     // 5. Konfirmasi transaksi
     $conn->commit();
 
-    header("Location: admin_aturan.php?success=Aturan (ID: $id_aturan_hapus) dan semua detailnya berhasil dihapus.");
+    header("Location: admin/admin_aturan.php?success=Aturan (ID: $id_aturan_hapus) dan semua detailnya berhasil dihapus.");
     exit();
 
 } catch (PDOException $e) {
     $conn->rollBack();
-    header("Location: admin_aturan.php?error=Error database: " . $e->getMessage());
+    header("Location: admin/admin_aturan.php?error=Error database: " . $e->getMessage());
     exit();
 }
 ?>

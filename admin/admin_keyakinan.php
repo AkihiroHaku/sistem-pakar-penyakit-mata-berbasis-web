@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // 1. Proteksi Admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
@@ -26,7 +26,7 @@ try {
     <title>Admin: Kelola Keyakinan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="../css/admin-style.css">
 </head>
 <body>
 
@@ -34,13 +34,13 @@ try {
     <div class="admin-sidebar">
         <h3 class="sidebar-title">Admin Panel</h3>
         <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="admin_gejala.php"><i class="fas fa-tasks"></i> Kelola Gejala</a></li>
-            <li class="nav-item"><a class="nav-link" href="admin_penyakit.php"><i class="fas fa-virus"></i> Kelola Penyakit</a></li>
-            <li class="nav-item"><a class="nav-link" href="admin_aturan.php"><i class="fas fa-network-wired"></i> Kelola Aturan</a></li>
-            <li class="nav-item"><a class="nav-link active" href="admin_keyakinan.php"><i class="fas fa-percent"></i> Kelola Keyakinan</a></li>
+            <li class="nav-item"><a class="nav-link" href="/pakar/admin/admin_gejala.php"><i class="fas fa-tasks"></i> Kelola Gejala</a></li>
+            <li class="nav-item"><a class="nav-link" href="/pakar/admin/admin_penyakit.php"><i class="fas fa-virus"></i> Kelola Penyakit</a></li>
+            <li class="nav-item"><a class="nav-link" href="/pakar/admin/admin_aturan.php"><i class="fas fa-network-wired"></i> Kelola Aturan</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/pakar/admin/admin_keyakinan.php"><i class="fas fa-percent"></i> Kelola Keyakinan</a></li>
             <li class="nav-item-divider"></li>
-            <li class="nav-item"><a class="nav-link" href="index.php" target="_blank"><i class="fas fa-globe"></i> Lihat Situs Publik</a></li>
-            <li class="nav-item"><a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
+            <li class="nav-item"><a class="nav-link" href="/pakar/index.php" target="_blank"><i class="fas fa-globe"></i> Lihat Situs Publik</a></li>
+            <li class="nav-item"><a class="nav-link" href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
         </ul>
     </div>
 
@@ -62,7 +62,7 @@ try {
             <div class="card mb-4" id="form-tambah-keyakinan">
                 <div class="card-header"><i class="fas fa-plus-circle"></i> Tambah Nilai Keyakinan Baru</div>
                 <div class="card-body">
-                    <form action="proses_tambah_keyakinan.php" method="POST">
+                    <form action="../proses/proses_tambah_keyakinan.php" method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="label" class="form-label">Label Tampilan</label>
@@ -82,8 +82,9 @@ try {
             <div class="card mb-4" id="form-edit-keyakinan" style="display: none; background-color: #fffbe6;">
                 <div class="card-header text-dark"><i class="fas fa-edit"></i> Edit Nilai Keyakinan</div>
                 <div class="card-body">
-                    <form action="proses_edit_keyakinan.php" method="POST">
+                    <form action="../proses/proses_edit_keyakinan.php" method="POST">
                         <input type="hidden" id="id_keyakinan_edit" name="id_keyakinan_edit">
+
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="label_edit" class="form-label">Label Tampilan</label>
@@ -126,7 +127,7 @@ try {
                                                 data-nilai="<?= htmlspecialchars($keyakinan['nilai']) ?>">
                                                 <i class="fas fa-edit"></i> Edit
                                             </button>
-                                            <a href="hapus_keyakinan.php?id=<?= $keyakinan['id'] ?>" class="btn btn-danger btn-sm btn-delete-keyakinan">
+                                                <a href="/pakar/hapus_keyakinan.php?id=<?= $keyakinan['id'] ?>" class="btn btn-danger btn-sm btn-delete-keyakinan">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </a>
                                         </td>
@@ -141,6 +142,6 @@ try {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/admin-script.js"></script>
+    <script src="../js/admin-script.js"></script>
 </body>
 </html>

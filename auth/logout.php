@@ -21,7 +21,6 @@ session_destroy();
 
 // 5. Arahkan pengguna kembali ke halaman utama.
 // Perintah ini harus dijalankan sebelum ada output HTML apapun.
-header("Location: index.php");
+header("Location: /pakar/index.php");
 exit(); // Hentikan eksekusi skrip setelah redirect.
 ?>
-

@@ -65,7 +65,7 @@ $persentase_teratas = current($hasil_cf); // Nilai CF tertinggi
                 <?php else: ?>
                     <div class="alert alert-info text-center" role="alert">
                         <i class="fas fa-info-circle me-2"></i> <a href="signup.php" class="alert-link">Daftar sekarang</a> untuk menyimpan riwayat analisis Anda!
-                    </div>
+                    </div>_
                 <?php endif; ?>
 
                 <div class="accordion" id="resultDetails">
@@ -167,7 +167,6 @@ $persentase_teratas = current($hasil_cf); // Nilai CF tertinggi
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 // Mulai blok try...catch LEBIH AWAL
 try {
@@ -132,7 +132,7 @@ try {
     $_SESSION['gejala_terpilih'] = $gejala_terpilih_detail; 
 
     // 10. Arahkan ke Halaman Hasil
-    header("Location: analisis.php");
+    header("Location: /pakar/analisis.php");
     exit();
 
 } catch (PDOException $e) {
